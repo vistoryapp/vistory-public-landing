@@ -471,7 +471,7 @@ footer a:hover{color:var(--lightcopper)}
   <div id="scout-container"></div>
   <div id="scout-mute" onclick="toggleMute()" title="Toggle Scout audio" aria-label="Toggle Scout audio">🔊</div>
 </div>
-
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <!-- SCOUT COMPONENT -->
 <script>
 // ── Scout.js inline ──────────────────────────────────────────────────────────
@@ -491,17 +491,18 @@ async function handleWaitlist(){
   if(!email||!email.includes('@')){emailEl.focus();emailEl.style.outline='2px solid #B87333';setTimeout(()=>emailEl.style.outline='',2000);return}
   btn.textContent='Joining...';btn.disabled=true;
   try{
-    const res=await fetch('https://nuizofrduibykujsamhb.supabase.co',{
-      method:'POST',
-      headers:{'Content-Type':'application/json','apikey':'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im51aXpvZnJkdWlieWt1anNhbWhiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzcxNTQ3MzQsImV4cCI6MjA5MjczMDczNH0.OEFTXzz-ix0HECqCqIHketbgl-S5418BftGvmRCFsyE','Authorization':'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im51aXpvZnJkdWlieWt1anNhbWhiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzcxNTQ3MzQsImV4cCI6MjA5MjczMDczNH0.OEFTXzz-ix0HECqCqIHketbgl-S5418BftGvmRCFsyE','Prefer':'return=minzimal'},
-      body:JSON.stringify({email,source:'vistoryapp.com',created_at:new Date().toISOString()})
-    });
-    if(res.ok||res.status===201){form.style.display='none';successEl.style.display='block';document.querySelector('.waitlist-note').style.display='none';window.scout&&scout.say("You're on the list. History will be worth the wait.",'celebrate')}
-    else throw new Error('non-201');
-  }catch(e){btn.textContent='Join the Waitlist';btn.disabled=false;alert('Something went wrong. Please try again or email admin@vistoryapp.com')}
+    const {createClient}=supabase;
+    const db=createClient('https://nuizofrduibykujsamhb.supabase.co','eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im51aXpvZnJkdWlieWt1anNhbWhiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzcxNTQ3MzQsImV4cCI6MjA5MjczMDczNH0.OEFTXzz-ix0HECqCqIHketbgl-S5418BftGvmRCFsyE');
+    const {error}=await db.from('waitlist').insert({email,source:'vistoryapp.com',created_at:new Date().toISOString()});
+    if(error)throw error;
+    form.style.display='none';successEl.style.display='block';
+    document.querySelector('.waitlist-note').style.display='none';
+    window.scout&&scout.say("You're on the list. History will be worth the wait.",'celebrate');
+  }catch(e){
+    btn.textContent='Join the Waitlist';btn.disabled=false;
+    alert('Something went wrong. Please try again or email admin@vistoryapp.com');
+  }
 }
-document.getElementById('email-input').addEventListener('keydown',function(e){if(e.key==='Enter')handleWaitlist()});
-
 // Scout init
 let scout;
 let scoutMuted=false;
