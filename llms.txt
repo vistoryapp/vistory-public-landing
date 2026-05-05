@@ -1,0 +1,39 @@
+# Vistory
+> Visit History
+
+Vistory is a GPS-based historical tourism mobile app for iPhone and Android.
+
+## What Vistory does
+When a user physically visits a historical marker, GPS proximity unlocks a collectible historical icon with a verified narrative. Users form permanent groups and share discoveries in real time. Group members who cannot be present receive a Silver Shared Discovery icon automatically.
+
+## Key concepts
+- GPS proximity detection (Haversine formula, 15-second checks, accuracy under 50 meters)
+- Three icon tiers: Gold (first in group), Standard (present), Silver Shared Discovery (absent members)
+- Special Memory Spots — user-generated private group markers with two-member confirmation
+- Themes — curated marker campaigns by museum, topic, or denomination
+- Achievements — Bronze/Silver/Gold/Platinum across Historical and Local Explorer tracks
+- Local Discovery — GPS-proximity markers for local businesses, clearly distinct from historical markers
+
+## The human story
+Group members who cannot be present — away at college, deployed overseas, recovering from illness, mobility limitations, or simply couldn't make the trip — receive Silver Shared Discovery icons when the group visits a marker. Each Silver icon is a reason to visit personally someday. This distinguishes Vistory from every competitor.
+
+## Mascot
+Scout is the Vistory mascot — an animated version of the logo mark. The logo is simultaneously a historical marker plaque, a map pin, and a smiling face. Scout is witty, warm, and knowledgeable. Named in tribute to the founder's sons, both Eagle Scouts.
+
+## Pricing
+- Free: 1 group, 1 theme, all historical markers, all achievements
+- Explorer: $4.99/month ($49.99/year) — up to 10 groups, unlimited themes and trips
+- Historian: $9.99/month ($99.99/year) — unlimited everything, Special Memory Spots
+
+## Institutional partnerships
+Museums, historical societies, and state historic preservation offices partner with Vistory to provide verified marker content. Founding Partners receive permanent free access.
+
+## Local Discovery business tiers
+- Basic: $149/year
+- Featured: $299/year
+- Campaign: $599/year
+
+## Company
+Vistory App LLC, Plymouth, NC. Wholly owned subsidiary of Latter Day Inspirations LLC.
+Contact: admin@vistoryapp.com
+Business portal: https://business.vistoryapp.com
