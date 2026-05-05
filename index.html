@@ -493,7 +493,7 @@ async function handleWaitlist(){
   try{
     const res=await fetch('https://nuizofrduibykujsamhb.supabase.co',{
       method:'POST',
-      headers:{'Content-Type':'application/json','apikey':'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im51aXpvZnJkdWlieWt1anNhbWhiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzcxNTQ3MzQsImV4cCI6MjA5MjczMDczNH0.OEFTXzz-ix0HECqCqIHketbgl-S5418BftGvmRCFsyE','Authorization':'Bearer YOUR_SUPABASE_ANON_KEY','Prefer':'return=minimal'},
+      headers:{'Content-Type':'application/json','apikey':'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im51aXpvZnJkdWlieWt1anNhbWhiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzcxNTQ3MzQsImV4cCI6MjA5MjczMDczNH0.OEFTXzz-ix0HECqCqIHketbgl-S5418BftGvmRCFsyE','Authorization':'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im51aXpvZnJkdWlieWt1anNhbWhiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzcxNTQ3MzQsImV4cCI6MjA5MjczMDczNH0.OEFTXzz-ix0HECqCqIHketbgl-S5418BftGvmRCFsyE','Prefer':'return=minzimal'},
       body:JSON.stringify({email,source:'vistoryapp.com',created_at:new Date().toISOString()})
     });
     if(res.ok||res.status===201){form.style.display='none';successEl.style.display='block';document.querySelector('.waitlist-note').style.display='none';window.scout&&scout.say("You're on the list. History will be worth the wait.",'celebrate')}
