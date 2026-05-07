@@ -176,63 +176,68 @@ footer p{font-size:0.8rem;line-height:1.8}
 footer a{color:rgba(255,255,255,0.5);text-decoration:none}
 footer a:hover{color:var(--lightcopper)}
 
-/* SCOUT DOCK — fixed bottom-right */
-#scout-dock{
+/* SCOUT WIDGET — fixed bottom-right, hidden until triggered */
+#scout-widget{
   position:fixed;
-  bottom:2rem;
+  bottom:5.5rem;
   right:2rem;
   z-index:9999;
   display:flex;
   flex-direction:column;
   align-items:center;
   gap:6px;
+  opacity:0;
+  pointer-events:none;
+  transition:opacity 0.4s ease;
 }
-#scout-dock .scout-label{
-  font-family:'DM Sans',sans-serif;
-  font-size:10px;
-  font-weight:500;
-  color:var(--copper);
-  letter-spacing:0.15em;
-  text-transform:uppercase;
-  opacity:0.7;
+#scout-widget.scout-shown{
+  opacity:1;
+  pointer-events:auto;
 }
-/* Mute button */
-#scout-mute{
-  width:28px;height:28px;border-radius:50%;
-  background:rgba(26,46,74,0.08);border:1px solid var(--border);
-  display:flex;align-items:center;justify-content:center;
-  cursor:pointer;font-size:13px;transition:background 0.2s;
-  margin-top:2px;
-}
-#scout-mute:hover{background:rgba(26,46,74,0.15)}
-#scout-mute.muted{background:rgba(184,115,51,0.12);border-color:var(--copper)}
-
-/* Bubble override for fixed dock — open upward and to the left */
-#scout-dock .scout-bubble{
+/* Bubble override — opens to the left */
+#scout-widget .scout-bubble{
   right:calc(100% + 12px);
   left:auto;
   transform:none;
   bottom:0;
   width:260px;
 }
-#scout-dock .scout-bubble::after{
+#scout-widget .scout-bubble::after{
   top:50%;left:100%;
   transform:translateY(-50%);
   border-top-color:transparent;
   border-left-color:var(--copper);
 }
-#scout-dock .scout-bubble::before{
+#scout-widget .scout-bubble::before{
   top:50%;left:calc(100% - 2px);
   transform:translateY(-50%);
   border-top-color:transparent;
   border-left-color:#fff;
+}
+/* Persistent help icon */
+#scout-help-icon{
+  position:fixed;
+  bottom:2rem;
+  right:2rem;
+  z-index:9999;
+  width:40px;
+  cursor:pointer;
+  animation:scoutHelpPulse 3s ease-in-out infinite;
+  opacity:0.75;
+  transition:opacity 0.2s;
+}
+#scout-help-icon:hover{opacity:1}
+@keyframes scoutHelpPulse{
+  0%,100%{transform:scale(1)}
+  50%{transform:scale(1.06)}
 }
 
 @media(max-width:700px){
   .tiers,.plans{grid-template-columns:1fr}
   .nav-links{display:none}
   .story-block{padding:2.5rem 1.5rem}
-  #scout-dock{bottom:1rem;right:1rem}
+  #scout-widget{bottom:5rem;right:1rem}
+  #scout-help-icon{bottom:1rem;right:1rem}
 }
 </style>
 </head>
@@ -241,22 +246,22 @@ footer a:hover{color:var(--lightcopper)}
 <!-- NAVIGATION -->
 <nav aria-label="Main navigation">
   <a class="nav-logo" href="/">
-    <svg viewBox="-75 -38 150 310" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-      <path d="M-75,-10 Q-75,-38 0,-38 Q75,-38 75,-10 L75,210 L11,210 L0,270 L-11,210 L-75,210 Z" fill="#1A2E4A" stroke="#B87333" stroke-width="4" stroke-linejoin="round"/>
-      <path d="M-63,0 Q-63,-24 0,-24 Q63,-24 63,0 L63,200 L9,200 L0,252 L-9,200 L-63,200 Z" fill="none" stroke="#B87333" stroke-width="2" stroke-linejoin="round"/>
-      <path d="M-54,8 Q-54,-14 0,-14 Q54,-14 54,8 L54,192 L8,192 L0,238 L-8,192 L-54,192 Z" fill="#243D5C"/>
-      <circle cx="-30" cy="6" r="6" fill="#B87333"/>
-      <circle cx="30" cy="6" r="6" fill="#B87333"/>
-      <circle cx="0" cy="75" r="38" fill="none" stroke="#D4A55A" stroke-width="2.5"/>
-      <circle cx="0" cy="75" r="22" fill="none" stroke="#D4A55A" stroke-width="1" stroke-dasharray="3,3"/>
-      <circle cx="0" cy="75" r="6" fill="#D4A55A"/>
-      <line x1="0" y1="33" x2="0" y2="45" stroke="#D4A55A" stroke-width="2.5" stroke-linecap="round"/>
-      <line x1="0" y1="105" x2="0" y2="117" stroke="#D4A55A" stroke-width="2.5" stroke-linecap="round"/>
-      <line x1="-42" y1="75" x2="-30" y2="75" stroke="#D4A55A" stroke-width="2.5" stroke-linecap="round"/>
-      <line x1="30" y1="75" x2="42" y2="75" stroke="#D4A55A" stroke-width="2.5" stroke-linecap="round"/>
-      <path id="navArc" d="M -40,118 A 44,44 0 0,0 40,118" fill="none"/>
+    <svg viewBox="-75 -26 150 210" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <path d="M-75,-7 Q-75,-26 0,-26 Q75,-26 75,-7 L75,141 L11,141 L0,181 L-11,141 L-75,141 Z" fill="#1A2E4A" stroke="#B87333" stroke-width="4" stroke-linejoin="round"/>
+      <path d="M-63,0 Q-63,-16 0,-16 Q63,-16 63,0 L63,134 L9,134 L0,169 L-9,134 L-63,134 Z" fill="none" stroke="#B87333" stroke-width="2" stroke-linejoin="round"/>
+      <path d="M-54,5 Q-54,-9 0,-9 Q54,-9 54,5 L54,129 L8,129 L0,160 L-8,129 L-54,129 Z" fill="#243D5C"/>
+      <circle cx="-30" cy="4" r="6" fill="#B87333"/>
+      <circle cx="30" cy="4" r="6" fill="#B87333"/>
+      <circle cx="0" cy="50" r="38" fill="none" stroke="#D4A55A" stroke-width="2.5"/>
+      <circle cx="0" cy="50" r="22" fill="none" stroke="#D4A55A" stroke-width="1" stroke-dasharray="3,3"/>
+      <circle cx="0" cy="50" r="6" fill="#D4A55A"/>
+      <line x1="0" y1="22" x2="0" y2="30" stroke="#D4A55A" stroke-width="2.5" stroke-linecap="round"/>
+      <line x1="0" y1="70" x2="0" y2="78" stroke="#D4A55A" stroke-width="2.5" stroke-linecap="round"/>
+      <line x1="-42" y1="50" x2="-30" y2="50" stroke="#D4A55A" stroke-width="2.5" stroke-linecap="round"/>
+      <line x1="30" y1="50" x2="42" y2="50" stroke="#D4A55A" stroke-width="2.5" stroke-linecap="round"/>
+      <path id="navArc" d="M -40,79 A 44,29 0 0,0 40,79" fill="none"/>
       <text font-family="Georgia,serif" font-size="15" fill="#D4A55A" font-weight="700" letter-spacing="2.5"><textPath href="#navArc" startOffset="50%" text-anchor="middle">VISTORY</textPath></text>
-      <text x="0" y="172" text-anchor="middle" font-family="Georgia,serif" font-size="9.5" fill="#B87333" letter-spacing="3">VISIT HISTORY</text>
+      <text x="0" y="115" text-anchor="middle" font-family="Georgia,serif" font-size="9.5" fill="#B87333" letter-spacing="3">VISIT HISTORY</text>
     </svg>
     <div>
       <div class="nav-brand">Vistory</div>
@@ -275,10 +280,10 @@ footer a:hover{color:var(--lightcopper)}
 <!-- HERO -->
 <header class="hero" role="banner">
   <div class="map-bg" aria-hidden="true"></div>
-  <svg class="pin-float" width="40" height="74" viewBox="-75 -38 150 310" aria-hidden="true"><path d="M-75,-10 Q-75,-38 0,-38 Q75,-38 75,-10 L75,210 L11,210 L0,270 L-11,210 L-75,210 Z" fill="#1A2E4A" stroke="#B87333" stroke-width="4"/><circle cx="0" cy="75" r="38" fill="none" stroke="#D4A55A" stroke-width="3"/><circle cx="0" cy="75" r="6" fill="#D4A55A"/></svg>
-  <svg class="pin-float" width="30" height="55" viewBox="-75 -38 150 310" aria-hidden="true"><path d="M-75,-10 Q-75,-38 0,-38 Q75,-38 75,-10 L75,210 L11,210 L0,270 L-11,210 L-75,210 Z" fill="#B87333" stroke="#D4A55A" stroke-width="4"/><circle cx="0" cy="75" r="38" fill="none" stroke="#D4A55A" stroke-width="3"/><circle cx="0" cy="75" r="6" fill="#D4A55A"/></svg>
-  <svg class="pin-float" width="36" height="66" viewBox="-75 -38 150 310" aria-hidden="true"><path d="M-75,-10 Q-75,-38 0,-38 Q75,-38 75,-10 L75,210 L11,210 L0,270 L-11,210 L-75,210 Z" fill="#1A2E4A" stroke="#B87333" stroke-width="4"/><circle cx="0" cy="75" r="38" fill="none" stroke="#D4A55A" stroke-width="3"/><circle cx="0" cy="75" r="6" fill="#D4A55A"/></svg>
-  <svg class="pin-float" width="24" height="44" viewBox="-75 -38 150 310" aria-hidden="true"><path d="M-75,-10 Q-75,-38 0,-38 Q75,-38 75,-10 L75,210 L11,210 L0,270 L-11,210 L-75,210 Z" fill="#B87333" stroke="#D4A55A" stroke-width="4"/><circle cx="0" cy="75" r="38" fill="none" stroke="#D4A55A" stroke-width="3"/><circle cx="0" cy="75" r="6" fill="#D4A55A"/></svg>
+  <svg class="pin-float" width="40" height="56" viewBox="-75 -26 150 210" aria-hidden="true"><path d="M-75,-7 Q-75,-26 0,-26 Q75,-26 75,-7 L75,141 L11,141 L0,181 L-11,141 L-75,141 Z" fill="#1A2E4A" stroke="#B87333" stroke-width="4"/><circle cx="0" cy="50" r="38" fill="none" stroke="#D4A55A" stroke-width="3"/><circle cx="0" cy="50" r="6" fill="#D4A55A"/></svg>
+  <svg class="pin-float" width="30" height="42" viewBox="-75 -26 150 210" aria-hidden="true"><path d="M-75,-7 Q-75,-26 0,-26 Q75,-26 75,-7 L75,141 L11,141 L0,181 L-11,141 L-75,141 Z" fill="#B87333" stroke="#D4A55A" stroke-width="4"/><circle cx="0" cy="50" r="38" fill="none" stroke="#D4A55A" stroke-width="3"/><circle cx="0" cy="50" r="6" fill="#D4A55A"/></svg>
+  <svg class="pin-float" width="36" height="50" viewBox="-75 -26 150 210" aria-hidden="true"><path d="M-75,-7 Q-75,-26 0,-26 Q75,-26 75,-7 L75,141 L11,141 L0,181 L-11,141 L-75,141 Z" fill="#1A2E4A" stroke="#B87333" stroke-width="4"/><circle cx="0" cy="50" r="38" fill="none" stroke="#D4A55A" stroke-width="3"/><circle cx="0" cy="50" r="6" fill="#D4A55A"/></svg>
+  <svg class="pin-float" width="24" height="34" viewBox="-75 -26 150 210" aria-hidden="true"><path d="M-75,-7 Q-75,-26 0,-26 Q75,-26 75,-7 L75,141 L11,141 L0,181 L-11,141 L-75,141 Z" fill="#B87333" stroke="#D4A55A" stroke-width="4"/><circle cx="0" cy="50" r="38" fill="none" stroke="#D4A55A" stroke-width="3"/><circle cx="0" cy="50" r="6" fill="#D4A55A"/></svg>
 
   <div class="hero-content">
     <div class="hero-eyebrow" role="text">GPS Historical Discovery App</div>
@@ -465,23 +470,103 @@ footer a:hover{color:var(--lightcopper)}
   <a href="https://business.vistoryapp.com">Business &amp; Partner Portal</a></p>
 </footer>
 
-<!-- SCOUT DOCK -->
-<div id="scout-dock" aria-label="Scout — Vistory guide" role="complementary">
-  <div class="scout-label">Scout</div>
+<!-- SCOUT WIDGET -->
+<div id="scout-widget" aria-label="Scout — Vistory guide" role="complementary">
   <div id="scout-container"></div>
-  <div id="scout-mute" onclick="toggleMute()" title="Toggle Scout audio" aria-label="Toggle Scout audio">🔊</div>
+</div>
+<!-- SCOUT HELP ICON -->
+<div id="scout-help-icon" onclick="scoutHelpClick()" role="button" tabindex="0" aria-label="Ask Scout" title="Ask Scout">
+  <svg width="40" viewBox="-75 -26 150 210" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <path d="M-75,-7 Q-75,-26 0,-26 Q75,-26 75,-7 L75,141 L11,141 L0,181 L-11,141 L-75,141 Z" fill="#1A2E4A" stroke="#B87333" stroke-width="4" stroke-linejoin="round"/>
+    <path d="M-54,5 Q-54,-9 0,-9 Q54,-9 54,5 L54,129 L8,129 L0,160 L-8,129 L-54,129 Z" fill="#243D5C"/>
+    <circle cx="0" cy="50" r="38" fill="none" stroke="#D4A55A" stroke-width="2.5"/>
+    <circle cx="0" cy="50" r="6" fill="#D4A55A"/>
+  </svg>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <!-- SCOUT COMPONENT -->
 <script>
 // ── Scout.js inline ──────────────────────────────────────────────────────────
-(function(global){'use strict';const COLORS={navy:'#1A2E4A',deepNavy:'#243D5C',copper:'#B87333',lightCopper:'#D4A55A',gold:'#D4AF37',cream:'#F7F3ED'};const CSS=`.scout-host{position:relative;display:inline-flex;flex-direction:column;align-items:center;cursor:pointer;user-select:none}.scout-bubble{position:absolute;bottom:calc(100% + 12px);left:50%;transform:translateX(-50%);background:#fff;border:2px solid #B87333;border-radius:12px;padding:10px 14px;width:240px;font-size:13px;color:#1A2E4A;line-height:1.6;font-family:'DM Sans',system-ui,sans-serif;opacity:0;pointer-events:none;transition:opacity 0.3s ease;text-align:left;z-index:1000}.scout-bubble::after{content:'';position:absolute;top:100%;left:50%;transform:translateX(-50%);border:7px solid transparent;border-top-color:#B87333}.scout-bubble::before{content:'';position:absolute;top:calc(100% - 2px);left:50%;transform:translateX(-50%);border:7px solid transparent;border-top-color:#fff;z-index:1}.scout-bubble.show{opacity:1;pointer-events:auto}.scout-bubble-name{font-size:10px;font-weight:500;color:#B87333;letter-spacing:0.12em;text-transform:uppercase;margin-bottom:4px;font-family:'DM Sans',system-ui,sans-serif}.scout-body{display:block}.scout-svg{overflow:visible}.scout-mouth-text{transition:opacity 0.3s ease}.scout-mouth-shape{transition:opacity 0.3s ease}.scout-tagline{transition:opacity 0.3s ease}.scout-confetti-wrap{position:absolute;bottom:100%;left:50%;pointer-events:none}.scout-confetti-dot{position:absolute;width:6px;height:6px;border-radius:50%;opacity:0}.scout-state-idle .scout-body{animation:scoutFloat 3s ease-in-out infinite}.scout-state-idle .scout-mouth-text{opacity:1}.scout-state-idle .scout-mouth-shape{opacity:0}.scout-state-idle .scout-tagline{opacity:1}.scout-state-wake .scout-body{animation:scoutWake 0.7s cubic-bezier(0.34,1.56,0.64,1) forwards}.scout-state-wake .scout-mouth-text{opacity:1}.scout-state-wake .scout-mouth-shape{opacity:0}.scout-state-wake .scout-tagline{opacity:1}.scout-state-talk .scout-body{animation:scoutFloat 2s ease-in-out infinite}.scout-state-talk .scout-mouth-text{opacity:0}.scout-state-talk .scout-mouth-shape{opacity:1}.scout-state-talk .scout-tagline{opacity:0}.scout-state-talk.scout-mouth-open .scout-mouth-top{animation:scoutMouthOpen 0.12s ease-in-out forwards}.scout-state-talk.scout-mouth-open .scout-mouth-fill{animation:scoutMouthFill 0.12s ease-in-out forwards}.scout-state-talk.scout-mouth-closed .scout-mouth-top{animation:none}.scout-state-talk.scout-mouth-closed .scout-mouth-fill{animation:none}.scout-state-greet .scout-body{animation:scoutFloat 3s ease-in-out infinite}.scout-state-greet .scout-mouth-text{opacity:0}.scout-state-greet .scout-mouth-shape{opacity:1}.scout-state-greet .scout-tagline{opacity:0}.scout-state-greet.scout-mouth-open .scout-mouth-top{animation:scoutMouthOpen 0.15s ease-in-out forwards}.scout-state-greet.scout-mouth-open .scout-mouth-fill{animation:scoutMouthFill 0.15s ease-in-out forwards}.scout-state-discover .scout-body{animation:scoutBounce 0.6s ease 1}.scout-state-discover .scout-pulse-ring{transform-origin:0px 75px;animation:scoutPulse 0.6s ease-out 3}.scout-state-discover .scout-center-dot{transform-origin:0px 75px;animation:scoutPulse 0.6s ease-out 3}.scout-state-discover .scout-mouth-text{opacity:1}.scout-state-discover .scout-mouth-shape{opacity:0}.scout-state-discover .scout-tagline{opacity:1}.scout-state-celebrate .scout-body{animation:scoutBounce 0.5s ease-in-out 3}.scout-state-celebrate .scout-mouth-text{opacity:0}.scout-state-celebrate .scout-mouth-shape{opacity:1}.scout-state-celebrate .scout-tagline{opacity:0}.scout-state-celebrate .scout-pulse-ring{transform-origin:0px 75px;animation:scoutPulse 0.8s ease-out infinite}.scout-state-celebrate.scout-mouth-open .scout-mouth-top{animation:scoutMouthOpen 0.1s ease-in-out forwards}.scout-state-celebrate.scout-mouth-open .scout-mouth-fill{animation:scoutMouthFill 0.1s ease-in-out forwards}.scout-state-celebrate .scout-confetti-dot{animation:scoutConfetti 1s ease-out infinite}.scout-state-think .scout-body{animation:scoutShake 0.5s ease-in-out 2}.scout-state-think .scout-mouth-text{opacity:1}.scout-state-think .scout-mouth-shape{opacity:0}.scout-state-think .scout-tagline{opacity:1}@keyframes scoutFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}@keyframes scoutWake{0%{transform:scale(0.7) translateY(20px);opacity:0}60%{transform:scale(1.08) translateY(-4px);opacity:1}100%{transform:scale(1) translateY(0);opacity:1}}@keyframes scoutBounce{0%,100%{transform:translateY(0)}20%{transform:translateY(-18px)}40%{transform:translateY(-6px)}60%{transform:translateY(-14px)}80%{transform:translateY(-4px)}}@keyframes scoutShake{0%,100%{transform:rotate(0)}20%{transform:rotate(-8deg)}40%{transform:rotate(8deg)}60%{transform:rotate(-5deg)}80%{transform:rotate(5deg)}}@keyframes scoutPulse{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.4);opacity:0}}@keyframes scoutMouthOpen{0%,100%{d:path("M -34,126 A 38,18 0 0,0 34,126")}40%{d:path("M -34,122 A 38,12 0 0,0 34,122 L 27,138 A 22,9 0 0,1 -27,138 Z")}}@keyframes scoutMouthFill{0%,100%{d:path("M -34,126 A 38,18 0 0,0 34,126 Z")}40%{d:path("M -34,122 A 38,12 0 0,0 34,122 L 27,138 A 22,9 0 0,1 -27,138 Z")}}@keyframes scoutConfetti{0%{opacity:1;transform:translate(0,0)}100%{opacity:0;transform:translate(var(--scout-dx),var(--scout-dy))}}`;const CLIP_ID_PREFIX='scout-clip-';let instanceCount=0;function injectStyles(){if(document.getElementById('scout-styles'))return;const s=document.createElement('style');s.id='scout-styles';s.textContent=CSS;document.head.appendChild(s)}function countSyllables(word){word=word.toLowerCase().replace(/[^a-z]/g,'');if(!word.length)return 1;const m=word.match(/[aeiouy]+/g);let c=m?m.length:1;if(word.endsWith('e')&&word.length>2)c=Math.max(1,c-1);return Math.max(1,c)}function buildSVG(size,clipId){const h=Math.round(size*(310/150));return`<svg class="scout-svg" width="${size}" height="${h}" viewBox="-75 -38 150 310" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><defs><clipPath id="${clipId}"><path d="M-54,8 Q-54,-14 0,-14 Q54,-14 54,8 L54,192 L8,192 L0,238 L-8,192 L-54,192 Z"/></clipPath></defs><path d="M-75,-10 Q-75,-38 0,-38 Q75,-38 75,-10 L75,210 L11,210 L0,270 L-11,210 L-75,210 Z" fill="#1A2E4A" stroke="#B87333" stroke-width="4" stroke-linejoin="round"/><path d="M-63,0 Q-63,-24 0,-24 Q63,-24 63,0 L63,200 L9,200 L0,252 L-9,200 L-63,200 Z" fill="none" stroke="#B87333" stroke-width="2" stroke-linejoin="round"/><path d="M-54,8 Q-54,-14 0,-14 Q54,-14 54,8 L54,192 L8,192 L0,238 L-8,192 L-54,192 Z" fill="#243D5C" stroke-linejoin="round"/><ellipse cx="0" cy="274" rx="22" ry="6" fill="#1A2E4A" opacity="0.13"/><circle cx="-30" cy="6" r="6" fill="#B87333"/><circle cx="30" cy="6" r="6" fill="#B87333"/><circle cx="0" cy="75" r="38" fill="none" stroke="#D4A55A" stroke-width="2.5"/><circle cx="0" cy="75" r="22" fill="none" stroke="#D4A55A" stroke-width="1" stroke-dasharray="3,3"/><circle class="scout-center-dot" cx="0" cy="75" r="6" fill="#D4A55A"/><line x1="0" y1="33" x2="0" y2="45" stroke="#D4A55A" stroke-width="2.5" stroke-linecap="round"/><line x1="0" y1="105" x2="0" y2="117" stroke="#D4A55A" stroke-width="2.5" stroke-linecap="round"/><line x1="-42" y1="75" x2="-30" y2="75" stroke="#D4A55A" stroke-width="2.5" stroke-linecap="round"/><line x1="30" y1="75" x2="42" y2="75" stroke="#D4A55A" stroke-width="2.5" stroke-linecap="round"/><circle class="scout-pulse-ring" cx="0" cy="75" r="38" fill="none" stroke="#D4AF37" stroke-width="3" opacity="0"/><g class="scout-mouth-text"><path id="scout-smile-arc-${clipId}" d="M -40,118 A 44,44 0 0,0 40,118" fill="none"/><text font-family="Georgia,'Times New Roman',serif" font-size="15" fill="#D4A55A" font-weight="700" letter-spacing="2.5"><textPath href="#scout-smile-arc-${clipId}" startOffset="50%" text-anchor="middle">VISTORY</textPath></text></g><g class="scout-mouth-shape" clip-path="url(#${clipId})"><path class="scout-mouth-fill" d="M -34,126 A 38,18 0 0,0 34,126 Z" fill="#1A2E4A"/><path class="scout-mouth-top" d="M -34,126 A 38,18 0 0,0 34,126" fill="none" stroke="#D4A55A" stroke-width="2.5" stroke-linecap="round"/></g><text class="scout-tagline" x="0" y="175" text-anchor="middle" font-family="Georgia,'Times New Roman',serif" font-size="9.5" fill="#B87333" font-weight="400" letter-spacing="3">VISIT HISTORY</text></svg>`}function buildConfettiHTML(){const colors=['#D4AF37','#B87333','#D4A55A','#1A2E4A','#D4E4F0'];let html='';for(let i=0;i<12;i++){const angle=(i/12)*360,dist=40+Math.random()*30,dx=Math.round(Math.cos(angle*Math.PI/180)*dist),dy=Math.round(-Math.sin(angle*Math.PI/180)*dist-20),color=colors[i%colors.length],delay=(i*0.08).toFixed(2);html+=`<div class="scout-confetti-dot" style="background:${color};left:-3px;bottom:0;--scout-dx:${dx}px;--scout-dy:${dy}px;animation-delay:${delay}s"></div>`}return html}function Scout(options){options=options||{};injectStyles();this._id=CLIP_ID_PREFIX+(++instanceCount);this._size=options.size||80;this._state='idle';this._mouthOpen=false;this._mouthTimer=null;this._voices=[];this._voice=null;this._rate=options.rate||0.9;this._pitch=options.pitch||1.05;this._muted=options.muted||false;this._onSpeakEnd=options.onSpeakEnd||null;const container=options.container||document.body;this._host=document.createElement('div');this._host.className='scout-host scout-state-idle';this._host.setAttribute('role','complementary');this._host.setAttribute('aria-label','Scout — Vistory guide');this._host.innerHTML=`<div class="scout-bubble" id="${this._id}-bubble"><div class="scout-bubble-name">Scout</div><span class="scout-bubble-text" id="${this._id}-bubble-text"></span></div><div class="scout-confetti-wrap" id="${this._id}-confetti"></div><div class="scout-body">${buildSVG(this._size,this._id)}</div>`;container.appendChild(this._host);this._bubble=this._host.querySelector('.scout-bubble');this._bubbleText=this._host.querySelector('.scout-bubble-text');this._confetti=this._host.querySelector('.scout-confetti-wrap');this._host.addEventListener('click',()=>{if(this._bubble.classList.contains('show'))this.hideBubble();else this.showBubble(this._lastBubbleText||"Hi — I'm Scout.")});if('speechSynthesis' in window){const loadV=()=>{this._voices=speechSynthesis.getVoices().filter(v=>v.lang.startsWith('en'));if(!this._voice&&this._voices.length)this._voice=this._voices.find(v=>v.default)||this._voices[0]};loadV();speechSynthesis.onvoiceschanged=loadV}if(options.autoGreet)setTimeout(()=>this.say("I'm Scout. I live inside your map pin. Yes, really. Let's go find something.",'wake'),1200)}Scout.prototype.setState=function(state){this._state=state;this._host.className='scout-host scout-state-'+state;if(state==='celebrate')this._confetti.innerHTML=buildConfettiHTML();else this._confetti.innerHTML='';return this};Scout.prototype.showBubble=function(text){this._lastBubbleText=text;this._bubbleText.textContent=text;this._bubble.classList.add('show');return this};Scout.prototype.hideBubble=function(){this._bubble.classList.remove('show');return this};Scout.prototype._setMouth=function(open){this._mouthOpen=open;if(open){this._host.classList.add('scout-mouth-open');this._host.classList.remove('scout-mouth-closed')}else{this._host.classList.add('scout-mouth-closed');this._host.classList.remove('scout-mouth-open')}};Scout.prototype.say=function(text,state){this.stop();this.setState(state||'talk');this.showBubble(text);if(this._muted||!('speechSynthesis' in window))return this;const utt=new SpeechSynthesisUtterance(text);utt.rate=this._rate;utt.pitch=this._pitch;if(this._voice)utt.voice=this._voice;const self=this;utt.onboundary=function(e){if(e.name==='word'){self._setMouth(true);clearTimeout(self._mouthTimer);const w=(e.utterance.text.substr(e.charIndex).match(/\S+/)||[''])[0];const syl=countSyllables(w);self._mouthTimer=setTimeout(()=>self._setMouth(false),Math.max(80,syl*110))}};utt.onend=function(){clearTimeout(self._mouthTimer);self._setMouth(false);setTimeout(()=>{self.setState('idle');if(typeof self._onSpeakEnd==='function')self._onSpeakEnd()},600)};utt.onerror=function(){self._setMouth(false);self.setState('idle')};speechSynthesis.speak(utt);return this};Scout.prototype.stop=function(){if('speechSynthesis' in window)speechSynthesis.cancel();clearTimeout(this._mouthTimer);this._setMouth(false);this.setState('idle');return this};Scout.prototype.mute=function(){this._muted=true;if('speechSynthesis' in window)speechSynthesis.cancel();return this};Scout.prototype.unmute=function(){this._muted=false;return this};Scout.attachScrollTriggers=function(scoutInstance,triggers){if(!('IntersectionObserver' in window))return;const fired=new Set();const observer=new IntersectionObserver((entries)=>{entries.forEach(entry=>{if(entry.isIntersecting){const trigger=triggers.find(t=>entry.target.matches(t.selector));if(trigger&&!fired.has(trigger.selector)){fired.add(trigger.selector);setTimeout(()=>{scoutInstance.say(trigger.quip,trigger.state||'talk')},trigger.delay||400)}}})},{threshold:0.4});triggers.forEach(t=>{const el=document.querySelector(t.selector);if(el)observer.observe(el)})};global.Scout=Scout}(window));
+(function(global){'use strict';
+const CSS=`.scout-host{position:relative;display:inline-flex;flex-direction:column;align-items:center;user-select:none}.scout-bubble{position:absolute;bottom:calc(100% + 12px);left:50%;transform:translateX(-50%);background:#fff;border:2px solid #B87333;border-radius:12px;padding:10px 14px;width:240px;font-size:13px;color:#1A2E4A;line-height:1.6;font-family:'DM Sans',system-ui,sans-serif;opacity:0;pointer-events:none;transition:opacity 0.3s ease;text-align:left;z-index:1000}.scout-bubble::after{content:'';position:absolute;top:100%;left:50%;transform:translateX(-50%);border:7px solid transparent;border-top-color:#B87333}.scout-bubble::before{content:'';position:absolute;top:calc(100% - 2px);left:50%;transform:translateX(-50%);border:7px solid transparent;border-top-color:#fff;z-index:1}.scout-bubble.show{opacity:1;pointer-events:auto}.scout-bubble-name{font-size:10px;font-weight:500;color:#B87333;letter-spacing:0.12em;text-transform:uppercase;margin-bottom:4px;font-family:'DM Sans',system-ui,sans-serif}.scout-bubble-close{position:absolute;top:6px;right:8px;background:none;border:none;color:#B87333;font-size:18px;cursor:pointer;line-height:1;padding:0;opacity:0.5}.scout-bubble-close:hover{opacity:1}.scout-body{display:block}.scout-svg{overflow:visible}.scout-mouth-text{transition:opacity 0.3s ease}.scout-mouth-shape{transition:opacity 0.3s ease}.scout-tagline{transition:opacity 0.3s ease}.scout-confetti-wrap{position:absolute;bottom:100%;left:50%;pointer-events:none}.scout-confetti-dot{position:absolute;width:6px;height:6px;border-radius:50%;opacity:0}.scout-state-idle .scout-body{animation:scoutFloat 3s ease-in-out infinite}.scout-state-idle .scout-mouth-text{opacity:1}.scout-state-idle .scout-mouth-shape{opacity:0}.scout-state-idle .scout-tagline{opacity:1}.scout-state-wake .scout-body{animation:scoutWake 0.7s cubic-bezier(0.34,1.56,0.64,1) forwards}.scout-state-wake .scout-mouth-text{opacity:1}.scout-state-wake .scout-mouth-shape{opacity:0}.scout-state-wake .scout-tagline{opacity:1}.scout-state-talk .scout-body{animation:scoutFloat 2s ease-in-out infinite}.scout-state-talk .scout-mouth-text{opacity:0}.scout-state-talk .scout-mouth-shape{opacity:1}.scout-state-talk .scout-tagline{opacity:0}.scout-state-greet .scout-body{animation:scoutFloat 3s ease-in-out infinite}.scout-state-greet .scout-mouth-text{opacity:0}.scout-state-greet .scout-mouth-shape{opacity:1}.scout-state-greet .scout-tagline{opacity:0}.scout-state-discover .scout-body{animation:scoutBounce 0.6s ease 1}.scout-state-discover .scout-pulse-ring{transform-origin:0px 50px;animation:scoutPulse 0.6s ease-out 3}.scout-state-discover .scout-center-dot{transform-origin:0px 50px;animation:scoutPulse 0.6s ease-out 3}.scout-state-discover .scout-mouth-text{opacity:1}.scout-state-discover .scout-mouth-shape{opacity:0}.scout-state-discover .scout-tagline{opacity:1}.scout-state-celebrate .scout-body{animation:scoutBounce 0.5s ease-in-out 3}.scout-state-celebrate .scout-mouth-text{opacity:0}.scout-state-celebrate .scout-mouth-shape{opacity:1}.scout-state-celebrate .scout-tagline{opacity:0}.scout-state-celebrate .scout-pulse-ring{transform-origin:0px 50px;animation:scoutPulse 0.8s ease-out infinite}.scout-state-celebrate .scout-confetti-dot{animation:scoutConfetti 1s ease-out infinite}.scout-state-think .scout-body{animation:scoutShake 0.5s ease-in-out 2}.scout-state-think .scout-mouth-text{opacity:1}.scout-state-think .scout-mouth-shape{opacity:0}.scout-state-think .scout-tagline{opacity:1}@keyframes scoutFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}@keyframes scoutWake{0%{transform:scale(0.7) translateY(20px);opacity:0}60%{transform:scale(1.08) translateY(-4px);opacity:1}100%{transform:scale(1) translateY(0);opacity:1}}@keyframes scoutBounce{0%,100%{transform:translateY(0)}20%{transform:translateY(-18px)}40%{transform:translateY(-6px)}60%{transform:translateY(-14px)}80%{transform:translateY(-4px)}}@keyframes scoutShake{0%,100%{transform:rotate(0)}20%{transform:rotate(-8deg)}40%{transform:rotate(8deg)}60%{transform:rotate(-5deg)}80%{transform:rotate(5deg)}}@keyframes scoutPulse{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.4);opacity:0}}@keyframes scoutMouthOpen{0%,100%{d:path("M -34,84 A 38,12 0 0,0 34,84")}40%{d:path("M -34,82 A 38,8 0 0,0 34,82 L 27,92 A 22,6 0 0,1 -27,92 Z")}}@keyframes scoutMouthFill{0%,100%{d:path("M -34,84 A 38,12 0 0,0 34,84 Z")}40%{d:path("M -34,82 A 38,8 0 0,0 34,82 L 27,92 A 22,6 0 0,1 -27,92 Z")}}@keyframes scoutConfetti{0%{opacity:1;transform:translate(0,0)}100%{opacity:0;transform:translate(var(--scout-dx),var(--scout-dy))}}`;
+
+const CLIP_ID_PREFIX='scout-clip-';let instanceCount=0;
+
+function injectStyles(){if(document.getElementById('scout-styles'))return;const s=document.createElement('style');s.id='scout-styles';s.textContent=CSS;document.head.appendChild(s)}
+
+function buildSVG(size,clipId){const h=Math.round(size*(210/150));return`<svg class="scout-svg" width="${size}" height="${h}" viewBox="-75 -26 150 210" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><defs><clipPath id="${clipId}"><path d="M-54,5 Q-54,-9 0,-9 Q54,-9 54,5 L54,129 L8,129 L0,160 L-8,129 L-54,129 Z"/></clipPath></defs><path d="M-75,-7 Q-75,-26 0,-26 Q75,-26 75,-7 L75,141 L11,141 L0,181 L-11,141 L-75,141 Z" fill="#1A2E4A" stroke="#B87333" stroke-width="4" stroke-linejoin="round"/><path d="M-63,0 Q-63,-16 0,-16 Q63,-16 63,0 L63,134 L9,134 L0,169 L-9,134 L-63,134 Z" fill="none" stroke="#B87333" stroke-width="2" stroke-linejoin="round"/><path d="M-54,5 Q-54,-9 0,-9 Q54,-9 54,5 L54,129 L8,129 L0,160 L-8,129 L-54,129 Z" fill="#243D5C" stroke-linejoin="round"/><ellipse cx="0" cy="184" rx="22" ry="6" fill="#1A2E4A" opacity="0.13"/><circle cx="-30" cy="4" r="6" fill="#B87333"/><circle cx="30" cy="4" r="6" fill="#B87333"/><circle cx="0" cy="50" r="38" fill="none" stroke="#D4A55A" stroke-width="2.5"/><circle cx="0" cy="50" r="22" fill="none" stroke="#D4A55A" stroke-width="1" stroke-dasharray="3,3"/><circle class="scout-center-dot" cx="0" cy="50" r="6" fill="#D4A55A"/><line x1="0" y1="22" x2="0" y2="30" stroke="#D4A55A" stroke-width="2.5" stroke-linecap="round"/><line x1="0" y1="70" x2="0" y2="78" stroke="#D4A55A" stroke-width="2.5" stroke-linecap="round"/><line x1="-42" y1="50" x2="-30" y2="50" stroke="#D4A55A" stroke-width="2.5" stroke-linecap="round"/><line x1="30" y1="50" x2="42" y2="50" stroke="#D4A55A" stroke-width="2.5" stroke-linecap="round"/><circle class="scout-pulse-ring" cx="0" cy="50" r="38" fill="none" stroke="#D4AF37" stroke-width="3" opacity="0"/><g class="scout-mouth-text"><path id="scout-smile-arc-${clipId}" d="M -40,79 A 44,29 0 0,0 40,79" fill="none"/><text font-family="Georgia,'Times New Roman',serif" font-size="15" fill="#D4A55A" font-weight="700" letter-spacing="2.5"><textPath href="#scout-smile-arc-${clipId}" startOffset="50%" text-anchor="middle">VISTORY</textPath></text></g><g class="scout-mouth-shape" clip-path="url(#${clipId})"><path class="scout-mouth-fill" d="M -34,84 A 38,12 0 0,0 34,84 Z" fill="#1A2E4A"/><path class="scout-mouth-top" d="M -34,84 A 38,12 0 0,0 34,84" fill="none" stroke="#D4A55A" stroke-width="2.5" stroke-linecap="round"/></g><text class="scout-tagline" x="0" y="117" text-anchor="middle" font-family="Georgia,'Times New Roman',serif" font-size="9.5" fill="#B87333" font-weight="400" letter-spacing="3">VISIT HISTORY</text></svg>`}
+
+function buildConfettiHTML(){const colors=['#D4AF37','#B87333','#D4A55A','#1A2E4A','#D4E4F0'];let html='';for(let i=0;i<12;i++){const angle=(i/12)*360,dist=40+Math.random()*30,dx=Math.round(Math.cos(angle*Math.PI/180)*dist),dy=Math.round(-Math.sin(angle*Math.PI/180)*dist-20),color=colors[i%colors.length],delay=(i*0.08).toFixed(2);html+=`<div class="scout-confetti-dot" style="background:${color};left:-3px;bottom:0;--scout-dx:${dx}px;--scout-dy:${dy}px;animation-delay:${delay}s"></div>`}return html}
+
+function Scout(options){
+  options=options||{};injectStyles();
+  this._id=CLIP_ID_PREFIX+(++instanceCount);
+  this._size=options.size||80;
+  this._state='idle';
+  this._dismissTimer=null;
+  this._widget=options.widget||null;
+  this._sectionTriggers=[];
+  this._lastBubbleText='';
+  const container=options.container||document.body;
+  this._host=document.createElement('div');
+  this._host.className='scout-host scout-state-idle';
+  this._host.setAttribute('role','img');
+  this._host.setAttribute('aria-label','Scout');
+  this._host.innerHTML=`<div class="scout-bubble" id="${this._id}-bubble"><div class="scout-bubble-name">Scout</div><button class="scout-bubble-close" aria-label="Dismiss">×</button><span class="scout-bubble-text" id="${this._id}-bubble-text"></span></div><div class="scout-confetti-wrap" id="${this._id}-confetti"></div><div class="scout-body">${buildSVG(this._size,this._id)}</div>`;
+  container.appendChild(this._host);
+  this._bubble=this._host.querySelector('.scout-bubble');
+  this._bubbleText=this._host.querySelector('.scout-bubble-text');
+  this._confetti=this._host.querySelector('.scout-confetti-wrap');
+  this._host.querySelector('.scout-bubble-close').addEventListener('click',(e)=>{e.stopPropagation();this.dismiss()});
+}
+
+Scout.prototype.setState=function(state){this._state=state;this._host.className='scout-host scout-state-'+state;if(state==='celebrate')this._confetti.innerHTML=buildConfettiHTML();else this._confetti.innerHTML='';return this};
+Scout.prototype.showBubble=function(text){this._lastBubbleText=text;this._bubbleText.textContent=text;this._bubble.classList.add('show');return this};
+Scout.prototype.hideBubble=function(){this._bubble.classList.remove('show');return this};
+
+Scout.prototype.show=function(text,state,keepOpen){
+  clearTimeout(this._dismissTimer);
+  this.setState(state||'talk');
+  this.showBubble(text);
+  if(this._widget)this._widget.classList.add('scout-shown');
+  if(!keepOpen)this._dismissTimer=setTimeout(()=>this.dismiss(),4000);
+  return this
+};
+
+Scout.prototype.dismiss=function(){
+  clearTimeout(this._dismissTimer);
+  if(this._widget)this._widget.classList.remove('scout-shown');
+  const self=this;
+  setTimeout(()=>{self.hideBubble();self.setState('idle')},400);
+  return this
+};
+
+Scout.prototype.say=function(text,state){return this.show(text,state,false)};
+
+Scout.attachScrollTriggers=function(scoutInstance,triggers){
+  if(!('IntersectionObserver' in window))return;
+  scoutInstance._sectionTriggers=triggers;
+  const fired=new Set();
+  const observer=new IntersectionObserver((entries)=>{
+    entries.forEach(entry=>{
+      if(entry.isIntersecting){
+        const trigger=triggers.find(t=>entry.target.matches(t.selector));
+        if(trigger&&!fired.has(trigger.selector)){
+          fired.add(trigger.selector);
+          setTimeout(()=>scoutInstance.say(trigger.quip,trigger.state||'talk'),trigger.delay||400)
+        }
+      }
+    })
+  },{threshold:0.4});
+  triggers.forEach(t=>{const el=document.querySelector(t.selector);if(el)observer.observe(el)})
+};
+
+global.Scout=Scout}(window));
 </script>
 
 <script>
 // ── Page scripts ─────────────────────────────────────────────────────────────
 
-// Waitlist
 async function handleWaitlist(){
   const emailEl=document.getElementById('email-input');
   const email=emailEl.value.trim();
@@ -503,48 +588,45 @@ async function handleWaitlist(){
     alert('Something went wrong. Please try again or email admin@vistoryapp.com');
   }
 }
-// Scout init
+
 let scout;
-let scoutMuted=false;
 
 window.addEventListener('DOMContentLoaded',()=>{
   scout=new Scout({
     container: document.getElementById('scout-container'),
+    widget: document.getElementById('scout-widget'),
     size: 72,
-    autoGreet: true,
-    rate: 0.9,
   });
 
-  // Reposition bubble to left side for dock placement
-  const bubble=scout._bubble;
-  bubble.style.right='calc(100% + 16px)';
-  bubble.style.left='auto';
-  bubble.style.bottom='0';
-  bubble.style.transform='none';
-
-  // Arrow pointing right
-  const style=document.createElement('style');
-  style.textContent=`
-    #scout-container .scout-bubble::after{top:50%!important;left:100%!important;transform:translateY(-50%)!important;border-top-color:transparent!important;border-left-color:#B87333!important;border-right-color:transparent!important}
-    #scout-container .scout-bubble::before{top:50%!important;left:calc(100% - 2px)!important;transform:translateY(-50%)!important;border-top-color:transparent!important;border-left-color:#fff!important;border-right-color:transparent!important}
-  `;
-  document.head.appendChild(style);
-
-  // Scroll triggers
-  Scout.attachScrollTriggers(scout,[
+  const triggers=[
     {selector:'#how-it-works', quip:'GPS verified. No shortcuts. You actually have to show up. I respect that.', state:'talk', delay:500},
     {selector:'#features',     quip:'Gold means first. Silver means someone who loves you went without you — and left a reason to visit.', state:'talk', delay:500},
     {selector:'.story-block',  quip:"Away at college. Deployed overseas. Couldn't make the trip. The Silver icon remembers what the calendar forgot.", state:'talk', delay:700},
     {selector:'#plans',        quip:"Free gets you started. Historian gets you obsessed. I'm not judging — I live inside a map pin.", state:'celebrate', delay:500},
     {selector:'#faq',          quip:"Still here? Good. History won't wait forever — well, actually it will. But you shouldn't.", state:'talk', delay:500},
-  ]);
+  ];
+  Scout.attachScrollTriggers(scout,triggers);
 });
 
-function toggleMute(){
-  scoutMuted=!scoutMuted;
-  const btn=document.getElementById('scout-mute');
-  if(scoutMuted){scout.mute();btn.textContent='🔇';btn.classList.add('muted')}
-  else{scout.unmute();btn.textContent='🔊';btn.classList.remove('muted')}
+function scoutHelpClick(){
+  if(!scout)return;
+  const trigger=getCurrentSectionTrigger();
+  const quip=trigger?trigger.quip:"Hi — I'm Scout. Your guide to Vistory. Scroll down to explore.";
+  const state=trigger?(trigger.state||'talk'):'greet';
+  scout.show(quip,state,true);
+}
+
+function getCurrentSectionTrigger(){
+  if(!scout||!scout._sectionTriggers)return null;
+  let best=null,bestVisible=0;
+  scout._sectionTriggers.forEach(t=>{
+    const el=document.querySelector(t.selector);
+    if(!el)return;
+    const rect=el.getBoundingClientRect();
+    const visible=Math.min(rect.bottom,window.innerHeight)-Math.max(rect.top,0);
+    if(visible>bestVisible){bestVisible=visible;best=t}
+  });
+  return bestVisible>50?best:null;
 }
 </script>
 

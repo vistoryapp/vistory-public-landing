@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(dir c:\\\\\\\\Projects\\\\\\\\Vistory /A /B)",
+      "PowerShell(Head *)",
+      "PowerShell(Test-Path \"C:\\\\Projects\\\\Vistory\"; if \\(Test-Path \"C:\\\\Projects\\\\Vistory\"\\) { \\(Get-ChildItem \"C:\\\\Projects\\\\Vistory\"\\).Name })",
+      "Bash(git add *)"
+    ]
+  }
+}
