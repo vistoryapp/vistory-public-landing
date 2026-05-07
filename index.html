@@ -227,6 +227,7 @@ footer a:hover{color:var(--lightcopper)}
   transition:opacity 0.2s;
 }
 #scout-help-icon:hover{opacity:1}
+#scout-widget.scout-shown ~ #scout-help-icon{opacity:0;pointer-events:none}
 @keyframes scoutHelpPulse{
   0%,100%{transform:scale(1)}
   50%{transform:scale(1.06)}
