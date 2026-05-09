@@ -79,7 +79,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;padding:1rem 2rem;display:fl
 .nav-cta:hover{background:var(--darkcopper) !important}
 
 /* HERO */
-.hero{min-height:100vh;position:relative;display:flex;align-items:center;justify-content:center;overflow:hidden;padding:6rem 2rem 4rem}
+.hero{min-height:100vh;position:relative;display:flex;align-items:center;justify-content:center;overflow:hidden;padding:6rem 2rem clamp(8rem,18vw,20rem)}
 .hero-content{position:relative;z-index:2;max-width:860px;text-align:center}
 .hero-eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:0.75rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--copper);margin-bottom:1.5rem;padding:0.4rem 1rem;border:1px solid rgba(184,115,51,0.3);border-radius:2px}
 .hero-eyebrow::before,.hero-eyebrow::after{content:'';display:inline-block;width:16px;height:1px;background:var(--copper);opacity:0.5}
@@ -324,16 +324,26 @@ footer a:hover{color:var(--lightcopper)}
         <circle r="3"/>
       </g>
 
-      <!-- Lighthouse -->
+      <!-- Roanoke River Lighthouse — two-story screw-pile cottage on pilings -->
       <g transform="translate(420 0)">
-        <rect x="-22" y="136" width="44" height="4"/>
-        <rect x="-17" y="132" width="34" height="4"/>
-        <path d="M-13,132 L-9,70 L9,70 L13,132 Z"/>
-        <rect x="-13" y="66" width="26" height="4"/>
-        <rect x="-9" y="54" width="18" height="12"/>
-        <path d="M-11,54 L0,42 L11,54 Z"/>
-        <rect x="-1" y="36" width="2" height="6"/>
-        <circle cx="0" cy="34" r="2"/>
+        <!-- Pilings -->
+        <rect x="-29" y="126" width="2" height="14"/>
+        <rect x="-15" y="126" width="2" height="14"/>
+        <rect x="-1" y="126" width="2" height="14"/>
+        <rect x="13" y="126" width="2" height="14"/>
+        <rect x="27" y="126" width="2" height="14"/>
+        <!-- Walkway platform -->
+        <rect x="-34" y="122" width="68" height="4"/>
+        <!-- Two-story body with 4 window cutouts -->
+        <path fill-rule="evenodd" d="M-30,82 L30,82 L30,122 L-30,122 Z M-19,88 L-13,88 L-13,96 L-19,96 Z M13,88 L19,88 L19,96 L13,96 Z M-19,108 L-13,108 L-13,116 L-19,116 Z M13,108 L19,108 L19,116 L13,116 Z"/>
+        <!-- Hipped roof -->
+        <path d="M-32,82 L-12,72 L12,72 L32,82 Z"/>
+        <!-- Lantern room -->
+        <rect x="-6" y="64" width="12" height="8"/>
+        <!-- Lantern roof (pyramidal) -->
+        <path d="M-7,64 L0,58 L7,64 Z"/>
+        <!-- Finial -->
+        <rect x="-0.5" y="54" width="1" height="4"/>
       </g>
 
       <!-- Old courthouse — Greek revival with cupola -->
@@ -357,15 +367,29 @@ footer a:hover{color:var(--lightcopper)}
         <circle cx="0" cy="-5" r="2"/>
       </g>
 
-      <!-- Covered bridge — stone abutments, peaked roof, open passage -->
+      <!-- Civil War field cannon — Port O' Plymouth Museum -->
       <g transform="translate(1020 0)">
-        <rect x="-90" y="118" width="20" height="22"/>
-        <rect x="70" y="118" width="20" height="22"/>
-        <rect x="-78" y="94" width="56" height="24"/>
-        <rect x="22" y="94" width="56" height="24"/>
-        <rect x="-22" y="94" width="44" height="6"/>
-        <path d="M-86,94 L0,72 L86,94 Z"/>
-        <rect x="-3" y="70" width="6" height="3"/>
+        <!-- Trail (sloped wooden support to ground) -->
+        <path d="M-15,118 L-15,124 L-78,134 L-78,128 Z"/>
+        <!-- Lunette ring at trail end -->
+        <circle cx="-78" cy="131" r="3" fill="none" stroke="#1A2E4A" stroke-width="1.5"/>
+        <!-- Carriage cheeks -->
+        <path d="M-15,108 L20,108 L20,124 L-15,124 Z"/>
+        <!-- Wheel rim -->
+        <circle cx="0" cy="125" r="15" fill="none" stroke="#1A2E4A" stroke-width="2.5"/>
+        <!-- Wheel hub -->
+        <circle cx="0" cy="125" r="3"/>
+        <!-- Spokes -->
+        <line x1="0" y1="111" x2="0" y2="139" stroke="#1A2E4A" stroke-width="1.5"/>
+        <line x1="-14" y1="125" x2="14" y2="125" stroke="#1A2E4A" stroke-width="1.5"/>
+        <line x1="-11" y1="114" x2="11" y2="136" stroke="#1A2E4A" stroke-width="1.5"/>
+        <line x1="11" y1="114" x2="-11" y2="136" stroke="#1A2E4A" stroke-width="1.5"/>
+        <!-- Cascabel knob (breech) -->
+        <circle cx="18" cy="113" r="3"/>
+        <!-- Barrel: tilted slightly upward -->
+        <path d="M20,118 L82,113 L82,107 L20,112 Z"/>
+        <!-- Muzzle flare -->
+        <path d="M82,107 L86,106 L86,114 L82,113 Z"/>
       </g>
     </g>
   </svg>
