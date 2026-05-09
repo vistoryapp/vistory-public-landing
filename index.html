@@ -94,12 +94,7 @@ h1 em{font-style:italic;color:var(--copper)}
 .waitlist-note{font-size:0.78rem;color:var(--muted);margin-top:0.75rem;opacity:0.8}
 .success-msg{display:none;background:rgba(26,46,74,0.06);border:1px solid rgba(26,46,74,0.2);border-radius:3px;padding:1rem;font-size:0.9rem;color:var(--navy);max-width:480px;margin:0 auto}
 
-.pin-float{position:absolute;animation:floatPin 6s ease-in-out infinite;opacity:0.18}
-.pin-float:nth-child(1){top:15%;left:8%;animation-delay:0s}
-.pin-float:nth-child(2){top:25%;right:10%;animation-delay:2s}
-.pin-float:nth-child(3){bottom:25%;left:12%;animation-delay:4s}
-.pin-float:nth-child(4){bottom:20%;right:8%;animation-delay:1s}
-@keyframes floatPin{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
+.hero-landmarks{position:absolute;left:0;right:0;bottom:0;width:100%;height:auto;pointer-events:none;z-index:1;display:block;-webkit-mask-image:linear-gradient(to right,transparent 0,#000 6%,#000 94%,transparent 100%);mask-image:linear-gradient(to right,transparent 0,#000 6%,#000 94%,transparent 100%)}
 
 /* DIVIDER */
 .section-divider{display:flex;align-items:center;gap:1rem;max-width:200px;margin:0 auto;padding:3rem 0 2rem}
@@ -308,10 +303,72 @@ footer a:hover{color:var(--lightcopper)}
 <!-- HERO -->
 <header class="hero" role="banner">
   <div class="map-bg" aria-hidden="true"></div>
-  <svg class="pin-float" width="40" height="56" viewBox="-75 -26 150 210" aria-hidden="true"><use href="#vistory-pin" x="-75" y="-26" width="150" height="210"/></svg>
-  <svg class="pin-float" width="30" height="42" viewBox="-75 -26 150 210" aria-hidden="true"><use href="#vistory-pin" x="-75" y="-26" width="150" height="210"/></svg>
-  <svg class="pin-float" width="36" height="50" viewBox="-75 -26 150 210" aria-hidden="true"><use href="#vistory-pin" x="-75" y="-26" width="150" height="210"/></svg>
-  <svg class="pin-float" width="24" height="34" viewBox="-75 -26 150 210" aria-hidden="true"><use href="#vistory-pin" x="-75" y="-26" width="150" height="210"/></svg>
+
+  <!-- Hero landmark strip — compass rose, lighthouse, courthouse, covered bridge
+       linked by a dashed copper "trail of discovery". Sits behind text content. -->
+  <svg class="hero-landmarks" viewBox="0 0 1200 160" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <!-- Faint horizon line -->
+    <line x1="40" y1="140" x2="1160" y2="140" stroke="#1A2E4A" stroke-width="1" opacity="0.08"/>
+    <!-- Dashed copper trail of discovery, threading through the landmarks -->
+    <path d="M120,148 Q280,142 420,148 Q570,142 720,148 Q870,142 1020,148 L1080,148"
+          fill="none" stroke="#B87333" stroke-width="1.5" stroke-dasharray="3,5" stroke-linecap="round" opacity="0.35"/>
+
+    <g fill="#1A2E4A" opacity="0.14">
+      <!-- Compass rose — navigator's mark -->
+      <g transform="translate(150 100)">
+        <circle r="36" fill="none" stroke="#1A2E4A" stroke-width="1.5"/>
+        <circle r="22" fill="none" stroke="#1A2E4A" stroke-width="0.8" stroke-dasharray="2.5,3"/>
+        <path d="M0,-32 L5,0 L0,32 L-5,0 Z"/>
+        <path d="M-32,0 L0,-5 L32,0 L0,5 Z"/>
+        <path d="M-22,-22 L-3,-3 L0,0 L-3,-3 Z"/>
+        <circle r="3"/>
+      </g>
+
+      <!-- Lighthouse -->
+      <g transform="translate(420 0)">
+        <rect x="-22" y="136" width="44" height="4"/>
+        <rect x="-17" y="132" width="34" height="4"/>
+        <path d="M-13,132 L-9,70 L9,70 L13,132 Z"/>
+        <rect x="-13" y="66" width="26" height="4"/>
+        <rect x="-9" y="54" width="18" height="12"/>
+        <path d="M-11,54 L0,42 L11,54 Z"/>
+        <rect x="-1" y="36" width="2" height="6"/>
+        <circle cx="0" cy="34" r="2"/>
+      </g>
+
+      <!-- Old courthouse — Greek revival with cupola -->
+      <g transform="translate(720 0)">
+        <rect x="-100" y="136" width="200" height="4"/>
+        <rect x="-92" y="130" width="184" height="6"/>
+        <rect x="-84" y="122" width="168" height="8"/>
+        <rect x="-72" y="82" width="6" height="40"/>
+        <rect x="-48" y="82" width="6" height="40"/>
+        <rect x="-24" y="82" width="6" height="40"/>
+        <rect x="0" y="82" width="6" height="40"/>
+        <rect x="24" y="82" width="6" height="40"/>
+        <rect x="48" y="82" width="6" height="40"/>
+        <rect x="66" y="82" width="6" height="40"/>
+        <rect x="-80" y="76" width="160" height="6"/>
+        <path d="M-80,76 L0,42 L80,76 Z"/>
+        <rect x="-14" y="24" width="28" height="18"/>
+        <rect x="-18" y="22" width="36" height="2"/>
+        <path d="M-12,24 Q0,6 12,24 Z"/>
+        <rect x="-1" y="-4" width="2" height="10"/>
+        <circle cx="0" cy="-5" r="2"/>
+      </g>
+
+      <!-- Covered bridge — stone abutments, peaked roof, open passage -->
+      <g transform="translate(1020 0)">
+        <rect x="-90" y="118" width="20" height="22"/>
+        <rect x="70" y="118" width="20" height="22"/>
+        <rect x="-78" y="94" width="56" height="24"/>
+        <rect x="22" y="94" width="56" height="24"/>
+        <rect x="-22" y="94" width="44" height="6"/>
+        <path d="M-86,94 L0,72 L86,94 Z"/>
+        <rect x="-3" y="70" width="6" height="3"/>
+      </g>
+    </g>
+  </svg>
 
   <div class="hero-content">
     <div class="hero-eyebrow" role="text">GPS Historical Discovery App</div>
