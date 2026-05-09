@@ -214,13 +214,13 @@ footer a:hover{color:var(--lightcopper)}
   border-top-color:transparent;
   border-left-color:#fff;
 }
-/* Chat panel — opens to the left of the Scout figure */
+/* Chat panel — opens to the left of the Scout figure on wide screens */
 #scout-widget .scout-chat{
   position:absolute;
   right:calc(100% + 12px);
   bottom:0;
   width:320px;
-  max-width:calc(100vw - 32px);
+  max-width:calc(100vw - 132px);
   max-height:min(440px,calc(100vh - 8rem));
 }
 /* Persistent help icon */
@@ -248,6 +248,10 @@ footer a:hover{color:var(--lightcopper)}
   .story-block{padding:2.5rem 1.5rem}
   #scout-widget{bottom:5rem;right:1rem}
   #scout-help-icon{bottom:1rem;right:1rem}
+}
+/* Chat panel: pin to viewport corners on narrow desktop too — anchored layout
+   only has enough room above ~900px once scrollbars/zoom are factored in. */
+@media(max-width:900px){
   #scout-widget .scout-chat{
     position:fixed;
     left:1rem;
