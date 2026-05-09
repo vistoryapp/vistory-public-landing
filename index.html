@@ -543,7 +543,7 @@ function Scout(options){
   this._host.querySelector('.scout-bubble-close').addEventListener('click',(e)=>{e.stopPropagation();this.dismiss()});
 }
 
-Scout.prototype.setState=function(state){this._state=state;this._host.className='scout-host scout-state-'+state;if(state==='celebrate')this._confetti.innerHTML=buildConfettiHTML();else this._confetti.innerHTML='';return this};
+Scout.prototype.setState=function(state){if(this._state)this._host.classList.remove('scout-state-'+this._state);this._state=state;this._host.classList.add('scout-state-'+state);if(state==='celebrate')this._confetti.innerHTML=buildConfettiHTML();else this._confetti.innerHTML='';return this};
 Scout.prototype.showBubble=function(text){this._lastBubbleText=text;this._bubbleText.textContent=text;this._bubble.classList.add('show');return this};
 Scout.prototype.hideBubble=function(){this._bubble.classList.remove('show');return this};
 
