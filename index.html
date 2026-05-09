@@ -214,6 +214,15 @@ footer a:hover{color:var(--lightcopper)}
   border-top-color:transparent;
   border-left-color:#fff;
 }
+/* Chat panel — opens to the left of the Scout figure */
+#scout-widget .scout-chat{
+  position:absolute;
+  right:calc(100% + 12px);
+  bottom:0;
+  width:320px;
+  max-width:calc(100vw - 32px);
+  max-height:min(440px,calc(100vh - 8rem));
+}
 /* Persistent help icon */
 #scout-help-icon{
   position:fixed;
@@ -239,31 +248,45 @@ footer a:hover{color:var(--lightcopper)}
   .story-block{padding:2.5rem 1.5rem}
   #scout-widget{bottom:5rem;right:1rem}
   #scout-help-icon{bottom:1rem;right:1rem}
+  #scout-widget .scout-chat{
+    position:fixed;
+    left:1rem;
+    right:1rem;
+    bottom:5rem;
+    width:auto;
+    max-width:none;
+    max-height:70vh;
+  }
 }
 </style>
 </head>
 <body>
 
+<!-- VISTORY PIN SPRITE — single source of truth for the brand pin logo -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
+  <symbol id="vistory-pin" viewBox="-75 -26 150 210">
+    <path d="M-75,-7 Q-75,-26 0,-26 Q75,-26 75,-7 L75,141 L11,141 L0,181 L-11,141 L-75,141 Z" fill="#1A2E4A" stroke="#B87333" stroke-width="4" stroke-linejoin="round"/>
+    <path d="M-63,0 Q-63,-16 0,-16 Q63,-16 63,0 L63,134 L9,134 L0,169 L-9,134 L-63,134 Z" fill="none" stroke="#B87333" stroke-width="2" stroke-linejoin="round"/>
+    <path d="M-54,5 Q-54,-9 0,-9 Q54,-9 54,5 L54,129 L8,129 L0,160 L-8,129 L-54,129 Z" fill="#243D5C"/>
+    <circle cx="-30" cy="4" r="6" fill="#B87333"/>
+    <circle cx="30" cy="4" r="6" fill="#B87333"/>
+    <circle cx="0" cy="50" r="38" fill="none" stroke="#D4A55A" stroke-width="2.5"/>
+    <circle cx="0" cy="50" r="22" fill="none" stroke="#D4A55A" stroke-width="1" stroke-dasharray="3,3"/>
+    <circle cx="0" cy="50" r="6" fill="#D4A55A"/>
+    <line x1="0" y1="22" x2="0" y2="30" stroke="#D4A55A" stroke-width="2.5" stroke-linecap="round"/>
+    <line x1="0" y1="70" x2="0" y2="78" stroke="#D4A55A" stroke-width="2.5" stroke-linecap="round"/>
+    <line x1="-42" y1="50" x2="-30" y2="50" stroke="#D4A55A" stroke-width="2.5" stroke-linecap="round"/>
+    <line x1="30" y1="50" x2="42" y2="50" stroke="#D4A55A" stroke-width="2.5" stroke-linecap="round"/>
+    <path id="vistoryPinArc" d="M -42,93 A 44,14 0 0,0 42,93" fill="none"/>
+    <text font-family="Georgia,serif" font-size="11" fill="#D4A55A" font-weight="700" letter-spacing="1.5"><textPath href="#vistoryPinArc" startOffset="50%" text-anchor="middle">VISTORY</textPath></text>
+    <text x="0" y="115" text-anchor="middle" font-family="Georgia,serif" font-size="9.5" fill="#B87333" letter-spacing="3">VISIT HISTORY</text>
+  </symbol>
+</svg>
+
 <!-- NAVIGATION -->
 <nav aria-label="Main navigation">
   <a class="nav-logo" href="/">
-    <svg viewBox="-75 -26 150 210" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-      <path d="M-75,-7 Q-75,-26 0,-26 Q75,-26 75,-7 L75,141 L11,141 L0,181 L-11,141 L-75,141 Z" fill="#1A2E4A" stroke="#B87333" stroke-width="4" stroke-linejoin="round"/>
-      <path d="M-63,0 Q-63,-16 0,-16 Q63,-16 63,0 L63,134 L9,134 L0,169 L-9,134 L-63,134 Z" fill="none" stroke="#B87333" stroke-width="2" stroke-linejoin="round"/>
-      <path d="M-54,5 Q-54,-9 0,-9 Q54,-9 54,5 L54,129 L8,129 L0,160 L-8,129 L-54,129 Z" fill="#243D5C"/>
-      <circle cx="-30" cy="4" r="6" fill="#B87333"/>
-      <circle cx="30" cy="4" r="6" fill="#B87333"/>
-      <circle cx="0" cy="50" r="38" fill="none" stroke="#D4A55A" stroke-width="2.5"/>
-      <circle cx="0" cy="50" r="22" fill="none" stroke="#D4A55A" stroke-width="1" stroke-dasharray="3,3"/>
-      <circle cx="0" cy="50" r="6" fill="#D4A55A"/>
-      <line x1="0" y1="22" x2="0" y2="30" stroke="#D4A55A" stroke-width="2.5" stroke-linecap="round"/>
-      <line x1="0" y1="70" x2="0" y2="78" stroke="#D4A55A" stroke-width="2.5" stroke-linecap="round"/>
-      <line x1="-42" y1="50" x2="-30" y2="50" stroke="#D4A55A" stroke-width="2.5" stroke-linecap="round"/>
-      <line x1="30" y1="50" x2="42" y2="50" stroke="#D4A55A" stroke-width="2.5" stroke-linecap="round"/>
-      <path id="navArc" d="M -42,93 A 44,14 0 0,0 42,93" fill="none"/>
-      <text font-family="Georgia,serif" font-size="11" fill="#D4A55A" font-weight="700" letter-spacing="1.5"><textPath href="#navArc" startOffset="50%" text-anchor="middle">VISTORY</textPath></text>
-      <text x="0" y="115" text-anchor="middle" font-family="Georgia,serif" font-size="9.5" fill="#B87333" letter-spacing="3">VISIT HISTORY</text>
-    </svg>
+    <svg viewBox="-75 -26 150 210" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><use href="#vistory-pin" x="-75" y="-26" width="150" height="210"/></svg>
     <div>
       <div class="nav-brand">Vistory</div>
       <div class="nav-tagline">Visit History</div>
@@ -281,10 +304,10 @@ footer a:hover{color:var(--lightcopper)}
 <!-- HERO -->
 <header class="hero" role="banner">
   <div class="map-bg" aria-hidden="true"></div>
-  <svg class="pin-float" width="40" height="56" viewBox="-75 -26 150 210" aria-hidden="true"><path d="M-75,-7 Q-75,-26 0,-26 Q75,-26 75,-7 L75,141 L11,141 L0,181 L-11,141 L-75,141 Z" fill="#1A2E4A" stroke="#B87333" stroke-width="4" stroke-linejoin="round"/><path d="M-63,0 Q-63,-16 0,-16 Q63,-16 63,0 L63,134 L9,134 L0,169 L-9,134 L-63,134 Z" fill="none" stroke="#B87333" stroke-width="2" stroke-linejoin="round"/><path d="M-54,5 Q-54,-9 0,-9 Q54,-9 54,5 L54,129 L8,129 L0,160 L-8,129 L-54,129 Z" fill="#243D5C"/><circle cx="-30" cy="4" r="6" fill="#B87333"/><circle cx="30" cy="4" r="6" fill="#B87333"/><circle cx="0" cy="50" r="38" fill="none" stroke="#D4A55A" stroke-width="2.5"/><circle cx="0" cy="50" r="22" fill="none" stroke="#D4A55A" stroke-width="1" stroke-dasharray="3,3"/><circle cx="0" cy="50" r="6" fill="#D4A55A"/><line x1="0" y1="22" x2="0" y2="30" stroke="#D4A55A" stroke-width="2.5" stroke-linecap="round"/><line x1="0" y1="70" x2="0" y2="78" stroke="#D4A55A" stroke-width="2.5" stroke-linecap="round"/><line x1="-42" y1="50" x2="-30" y2="50" stroke="#D4A55A" stroke-width="2.5" stroke-linecap="round"/><line x1="30" y1="50" x2="42" y2="50" stroke="#D4A55A" stroke-width="2.5" stroke-linecap="round"/><path id="heroArc1" d="M -42,93 A 44,14 0 0,0 42,93" fill="none"/><text font-family="Georgia,serif" font-size="11" fill="#D4A55A" font-weight="700" letter-spacing="1.5"><textPath href="#heroArc1" startOffset="50%" text-anchor="middle">VISTORY</textPath></text><text x="0" y="115" text-anchor="middle" font-family="Georgia,serif" font-size="9.5" fill="#B87333" letter-spacing="3">VISIT HISTORY</text></svg>
-  <svg class="pin-float" width="30" height="42" viewBox="-75 -26 150 210" aria-hidden="true"><path d="M-75,-7 Q-75,-26 0,-26 Q75,-26 75,-7 L75,141 L11,141 L0,181 L-11,141 L-75,141 Z" fill="#1A2E4A" stroke="#B87333" stroke-width="4" stroke-linejoin="round"/><path d="M-63,0 Q-63,-16 0,-16 Q63,-16 63,0 L63,134 L9,134 L0,169 L-9,134 L-63,134 Z" fill="none" stroke="#B87333" stroke-width="2" stroke-linejoin="round"/><path d="M-54,5 Q-54,-9 0,-9 Q54,-9 54,5 L54,129 L8,129 L0,160 L-8,129 L-54,129 Z" fill="#243D5C"/><circle cx="-30" cy="4" r="6" fill="#B87333"/><circle cx="30" cy="4" r="6" fill="#B87333"/><circle cx="0" cy="50" r="38" fill="none" stroke="#D4A55A" stroke-width="2.5"/><circle cx="0" cy="50" r="22" fill="none" stroke="#D4A55A" stroke-width="1" stroke-dasharray="3,3"/><circle cx="0" cy="50" r="6" fill="#D4A55A"/><line x1="0" y1="22" x2="0" y2="30" stroke="#D4A55A" stroke-width="2.5" stroke-linecap="round"/><line x1="0" y1="70" x2="0" y2="78" stroke="#D4A55A" stroke-width="2.5" stroke-linecap="round"/><line x1="-42" y1="50" x2="-30" y2="50" stroke="#D4A55A" stroke-width="2.5" stroke-linecap="round"/><line x1="30" y1="50" x2="42" y2="50" stroke="#D4A55A" stroke-width="2.5" stroke-linecap="round"/><path id="heroArc2" d="M -42,93 A 44,14 0 0,0 42,93" fill="none"/><text font-family="Georgia,serif" font-size="11" fill="#D4A55A" font-weight="700" letter-spacing="1.5"><textPath href="#heroArc2" startOffset="50%" text-anchor="middle">VISTORY</textPath></text><text x="0" y="115" text-anchor="middle" font-family="Georgia,serif" font-size="9.5" fill="#B87333" letter-spacing="3">VISIT HISTORY</text></svg>
-  <svg class="pin-float" width="36" height="50" viewBox="-75 -26 150 210" aria-hidden="true"><path d="M-75,-7 Q-75,-26 0,-26 Q75,-26 75,-7 L75,141 L11,141 L0,181 L-11,141 L-75,141 Z" fill="#1A2E4A" stroke="#B87333" stroke-width="4" stroke-linejoin="round"/><path d="M-63,0 Q-63,-16 0,-16 Q63,-16 63,0 L63,134 L9,134 L0,169 L-9,134 L-63,134 Z" fill="none" stroke="#B87333" stroke-width="2" stroke-linejoin="round"/><path d="M-54,5 Q-54,-9 0,-9 Q54,-9 54,5 L54,129 L8,129 L0,160 L-8,129 L-54,129 Z" fill="#243D5C"/><circle cx="-30" cy="4" r="6" fill="#B87333"/><circle cx="30" cy="4" r="6" fill="#B87333"/><circle cx="0" cy="50" r="38" fill="none" stroke="#D4A55A" stroke-width="2.5"/><circle cx="0" cy="50" r="22" fill="none" stroke="#D4A55A" stroke-width="1" stroke-dasharray="3,3"/><circle cx="0" cy="50" r="6" fill="#D4A55A"/><line x1="0" y1="22" x2="0" y2="30" stroke="#D4A55A" stroke-width="2.5" stroke-linecap="round"/><line x1="0" y1="70" x2="0" y2="78" stroke="#D4A55A" stroke-width="2.5" stroke-linecap="round"/><line x1="-42" y1="50" x2="-30" y2="50" stroke="#D4A55A" stroke-width="2.5" stroke-linecap="round"/><line x1="30" y1="50" x2="42" y2="50" stroke="#D4A55A" stroke-width="2.5" stroke-linecap="round"/><path id="heroArc3" d="M -42,93 A 44,14 0 0,0 42,93" fill="none"/><text font-family="Georgia,serif" font-size="11" fill="#D4A55A" font-weight="700" letter-spacing="1.5"><textPath href="#heroArc3" startOffset="50%" text-anchor="middle">VISTORY</textPath></text><text x="0" y="115" text-anchor="middle" font-family="Georgia,serif" font-size="9.5" fill="#B87333" letter-spacing="3">VISIT HISTORY</text></svg>
-  <svg class="pin-float" width="24" height="34" viewBox="-75 -26 150 210" aria-hidden="true"><path d="M-75,-7 Q-75,-26 0,-26 Q75,-26 75,-7 L75,141 L11,141 L0,181 L-11,141 L-75,141 Z" fill="#1A2E4A" stroke="#B87333" stroke-width="4" stroke-linejoin="round"/><path d="M-63,0 Q-63,-16 0,-16 Q63,-16 63,0 L63,134 L9,134 L0,169 L-9,134 L-63,134 Z" fill="none" stroke="#B87333" stroke-width="2" stroke-linejoin="round"/><path d="M-54,5 Q-54,-9 0,-9 Q54,-9 54,5 L54,129 L8,129 L0,160 L-8,129 L-54,129 Z" fill="#243D5C"/><circle cx="-30" cy="4" r="6" fill="#B87333"/><circle cx="30" cy="4" r="6" fill="#B87333"/><circle cx="0" cy="50" r="38" fill="none" stroke="#D4A55A" stroke-width="2.5"/><circle cx="0" cy="50" r="22" fill="none" stroke="#D4A55A" stroke-width="1" stroke-dasharray="3,3"/><circle cx="0" cy="50" r="6" fill="#D4A55A"/><line x1="0" y1="22" x2="0" y2="30" stroke="#D4A55A" stroke-width="2.5" stroke-linecap="round"/><line x1="0" y1="70" x2="0" y2="78" stroke="#D4A55A" stroke-width="2.5" stroke-linecap="round"/><line x1="-42" y1="50" x2="-30" y2="50" stroke="#D4A55A" stroke-width="2.5" stroke-linecap="round"/><line x1="30" y1="50" x2="42" y2="50" stroke="#D4A55A" stroke-width="2.5" stroke-linecap="round"/><path id="heroArc4" d="M -42,93 A 44,14 0 0,0 42,93" fill="none"/><text font-family="Georgia,serif" font-size="11" fill="#D4A55A" font-weight="700" letter-spacing="1.5"><textPath href="#heroArc4" startOffset="50%" text-anchor="middle">VISTORY</textPath></text><text x="0" y="115" text-anchor="middle" font-family="Georgia,serif" font-size="9.5" fill="#B87333" letter-spacing="3">VISIT HISTORY</text></svg>
+  <svg class="pin-float" width="40" height="56" viewBox="-75 -26 150 210" aria-hidden="true"><use href="#vistory-pin" x="-75" y="-26" width="150" height="210"/></svg>
+  <svg class="pin-float" width="30" height="42" viewBox="-75 -26 150 210" aria-hidden="true"><use href="#vistory-pin" x="-75" y="-26" width="150" height="210"/></svg>
+  <svg class="pin-float" width="36" height="50" viewBox="-75 -26 150 210" aria-hidden="true"><use href="#vistory-pin" x="-75" y="-26" width="150" height="210"/></svg>
+  <svg class="pin-float" width="24" height="34" viewBox="-75 -26 150 210" aria-hidden="true"><use href="#vistory-pin" x="-75" y="-26" width="150" height="210"/></svg>
 
   <div class="hero-content">
     <div class="hero-eyebrow" role="text">GPS Historical Discovery App</div>
@@ -477,30 +500,14 @@ footer a:hover{color:var(--lightcopper)}
 </div>
 <!-- SCOUT HELP ICON -->
 <div id="scout-help-icon" onclick="scoutHelpClick()" role="button" tabindex="0" aria-label="Ask Scout" title="Ask Scout">
-  <svg width="40" viewBox="-75 -26 150 210" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-    <path d="M-75,-7 Q-75,-26 0,-26 Q75,-26 75,-7 L75,141 L11,141 L0,181 L-11,141 L-75,141 Z" fill="#1A2E4A" stroke="#B87333" stroke-width="4" stroke-linejoin="round"/>
-    <path d="M-63,0 Q-63,-16 0,-16 Q63,-16 63,0 L63,134 L9,134 L0,169 L-9,134 L-63,134 Z" fill="none" stroke="#B87333" stroke-width="2" stroke-linejoin="round"/>
-    <path d="M-54,5 Q-54,-9 0,-9 Q54,-9 54,5 L54,129 L8,129 L0,160 L-8,129 L-54,129 Z" fill="#243D5C"/>
-    <circle cx="-30" cy="4" r="6" fill="#B87333"/>
-    <circle cx="30" cy="4" r="6" fill="#B87333"/>
-    <circle cx="0" cy="50" r="38" fill="none" stroke="#D4A55A" stroke-width="2.5"/>
-    <circle cx="0" cy="50" r="22" fill="none" stroke="#D4A55A" stroke-width="1" stroke-dasharray="3,3"/>
-    <circle cx="0" cy="50" r="6" fill="#D4A55A"/>
-    <line x1="0" y1="22" x2="0" y2="30" stroke="#D4A55A" stroke-width="2.5" stroke-linecap="round"/>
-    <line x1="0" y1="70" x2="0" y2="78" stroke="#D4A55A" stroke-width="2.5" stroke-linecap="round"/>
-    <line x1="-42" y1="50" x2="-30" y2="50" stroke="#D4A55A" stroke-width="2.5" stroke-linecap="round"/>
-    <line x1="30" y1="50" x2="42" y2="50" stroke="#D4A55A" stroke-width="2.5" stroke-linecap="round"/>
-    <path id="helpArc" d="M -42,93 A 44,14 0 0,0 42,93" fill="none"/>
-    <text font-family="Georgia,serif" font-size="11" fill="#D4A55A" font-weight="700" letter-spacing="1.5"><textPath href="#helpArc" startOffset="50%" text-anchor="middle">VISTORY</textPath></text>
-    <text x="0" y="115" text-anchor="middle" font-family="Georgia,serif" font-size="9.5" fill="#B87333" letter-spacing="3">VISIT HISTORY</text>
-  </svg>
+  <svg width="40" viewBox="-75 -26 150 210" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><use href="#vistory-pin" x="-75" y="-26" width="150" height="210"/></svg>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <!-- SCOUT COMPONENT -->
 <script>
 // ── Scout.js inline ──────────────────────────────────────────────────────────
 (function(global){'use strict';
-const CSS=`.scout-host{position:relative;display:inline-flex;flex-direction:column;align-items:center;user-select:none}.scout-bubble{position:absolute;bottom:calc(100% + 12px);left:50%;transform:translateX(-50%);background:#fff;border:2px solid #B87333;border-radius:12px;padding:10px 14px;width:240px;font-size:13px;color:#1A2E4A;line-height:1.6;font-family:'DM Sans',system-ui,sans-serif;opacity:0;pointer-events:none;transition:opacity 0.3s ease;text-align:left;z-index:1000}.scout-bubble::after{content:'';position:absolute;top:100%;left:50%;transform:translateX(-50%);border:7px solid transparent;border-top-color:#B87333}.scout-bubble::before{content:'';position:absolute;top:calc(100% - 2px);left:50%;transform:translateX(-50%);border:7px solid transparent;border-top-color:#fff;z-index:1}.scout-bubble.show{opacity:1;pointer-events:auto}.scout-bubble-name{font-size:10px;font-weight:500;color:#B87333;letter-spacing:0.12em;text-transform:uppercase;margin-bottom:4px;font-family:'DM Sans',system-ui,sans-serif}.scout-bubble-close{position:absolute;top:6px;right:8px;background:none;border:none;color:#B87333;font-size:18px;cursor:pointer;line-height:1;padding:0;opacity:0.5}.scout-bubble-close:hover{opacity:1}.scout-body{display:block}.scout-svg{overflow:visible}.scout-mouth-text{transition:opacity 0.3s ease}.scout-mouth-shape{transition:opacity 0.3s ease}.scout-tagline{transition:opacity 0.3s ease}.scout-confetti-wrap{position:absolute;bottom:100%;left:50%;pointer-events:none}.scout-confetti-dot{position:absolute;width:6px;height:6px;border-radius:50%;opacity:0}.scout-state-idle .scout-body{animation:scoutFloat 3s ease-in-out infinite}.scout-state-idle .scout-mouth-text{opacity:1}.scout-state-idle .scout-mouth-shape{opacity:0}.scout-state-idle .scout-tagline{opacity:1}.scout-state-wake .scout-body{animation:scoutWake 0.7s cubic-bezier(0.34,1.56,0.64,1) forwards}.scout-state-wake .scout-mouth-text{opacity:1}.scout-state-wake .scout-mouth-shape{opacity:0}.scout-state-wake .scout-tagline{opacity:1}.scout-state-talk .scout-body{animation:scoutFloat 2s ease-in-out infinite}.scout-state-talk .scout-mouth-text{opacity:0}.scout-state-talk .scout-mouth-shape{opacity:1}.scout-state-talk .scout-tagline{opacity:0}.scout-state-greet .scout-body{animation:scoutFloat 3s ease-in-out infinite}.scout-state-greet .scout-mouth-text{opacity:0}.scout-state-greet .scout-mouth-shape{opacity:1}.scout-state-greet .scout-tagline{opacity:0}.scout-state-discover .scout-body{animation:scoutBounce 0.6s ease 1}.scout-state-discover .scout-pulse-ring{transform-origin:0px 50px;animation:scoutPulse 0.6s ease-out 3}.scout-state-discover .scout-center-dot{transform-origin:0px 50px;animation:scoutPulse 0.6s ease-out 3}.scout-state-discover .scout-mouth-text{opacity:1}.scout-state-discover .scout-mouth-shape{opacity:0}.scout-state-discover .scout-tagline{opacity:1}.scout-state-celebrate .scout-body{animation:scoutBounce 0.5s ease-in-out 3}.scout-state-celebrate .scout-mouth-text{opacity:0}.scout-state-celebrate .scout-mouth-shape{opacity:1}.scout-state-celebrate .scout-tagline{opacity:0}.scout-state-celebrate .scout-pulse-ring{transform-origin:0px 50px;animation:scoutPulse 0.8s ease-out infinite}.scout-state-celebrate .scout-confetti-dot{animation:scoutConfetti 1s ease-out infinite}.scout-state-think .scout-body{animation:scoutShake 0.5s ease-in-out 2}.scout-state-think .scout-mouth-text{opacity:1}.scout-state-think .scout-mouth-shape{opacity:0}.scout-state-think .scout-tagline{opacity:1}@keyframes scoutFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}@keyframes scoutWake{0%{transform:scale(0.7) translateY(20px);opacity:0}60%{transform:scale(1.08) translateY(-4px);opacity:1}100%{transform:scale(1) translateY(0);opacity:1}}@keyframes scoutBounce{0%,100%{transform:translateY(0)}20%{transform:translateY(-18px)}40%{transform:translateY(-6px)}60%{transform:translateY(-14px)}80%{transform:translateY(-4px)}}@keyframes scoutShake{0%,100%{transform:rotate(0)}20%{transform:rotate(-8deg)}40%{transform:rotate(8deg)}60%{transform:rotate(-5deg)}80%{transform:rotate(5deg)}}@keyframes scoutPulse{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.4);opacity:0}}@keyframes scoutMouthOpen{0%,100%{d:path("M -34,84 A 38,12 0 0,0 34,84")}40%{d:path("M -34,82 A 38,8 0 0,0 34,82 L 27,92 A 22,6 0 0,1 -27,92 Z")}}@keyframes scoutMouthFill{0%,100%{d:path("M -34,84 A 38,12 0 0,0 34,84 Z")}40%{d:path("M -34,82 A 38,8 0 0,0 34,82 L 27,92 A 22,6 0 0,1 -27,92 Z")}}@keyframes scoutConfetti{0%{opacity:1;transform:translate(0,0)}100%{opacity:0;transform:translate(var(--scout-dx),var(--scout-dy))}}`;
+const CSS=`.scout-host{position:relative;display:inline-flex;flex-direction:column;align-items:center;user-select:none}.scout-bubble{position:absolute;bottom:calc(100% + 12px);left:50%;transform:translateX(-50%);background:#fff;border:2px solid #B87333;border-radius:12px;padding:10px 14px;width:240px;font-size:13px;color:#1A2E4A;line-height:1.6;font-family:'DM Sans',system-ui,sans-serif;opacity:0;pointer-events:none;transition:opacity 0.3s ease;text-align:left;z-index:1000}.scout-bubble::after{content:'';position:absolute;top:100%;left:50%;transform:translateX(-50%);border:7px solid transparent;border-top-color:#B87333}.scout-bubble::before{content:'';position:absolute;top:calc(100% - 2px);left:50%;transform:translateX(-50%);border:7px solid transparent;border-top-color:#fff;z-index:1}.scout-bubble.show{opacity:1;pointer-events:auto}.scout-bubble-name{font-size:10px;font-weight:500;color:#B87333;letter-spacing:0.12em;text-transform:uppercase;margin-bottom:4px;font-family:'DM Sans',system-ui,sans-serif}.scout-bubble-close{position:absolute;top:6px;right:8px;background:none;border:none;color:#B87333;font-size:18px;cursor:pointer;line-height:1;padding:0;opacity:0.5}.scout-bubble-close:hover{opacity:1}.scout-body{display:block}.scout-svg{overflow:visible}.scout-mouth-text{transition:opacity 0.3s ease}.scout-mouth-shape{transition:opacity 0.3s ease}.scout-tagline{transition:opacity 0.3s ease}.scout-confetti-wrap{position:absolute;bottom:100%;left:50%;pointer-events:none}.scout-confetti-dot{position:absolute;width:6px;height:6px;border-radius:50%;opacity:0}.scout-state-idle .scout-body{animation:scoutFloat 3s ease-in-out infinite}.scout-state-idle .scout-mouth-text{opacity:1}.scout-state-idle .scout-mouth-shape{opacity:0}.scout-state-idle .scout-tagline{opacity:1}.scout-state-wake .scout-body{animation:scoutWake 0.7s cubic-bezier(0.34,1.56,0.64,1) forwards}.scout-state-wake .scout-mouth-text{opacity:1}.scout-state-wake .scout-mouth-shape{opacity:0}.scout-state-wake .scout-tagline{opacity:1}.scout-state-talk .scout-body{animation:scoutFloat 2s ease-in-out infinite}.scout-state-talk .scout-mouth-text{opacity:0}.scout-state-talk .scout-mouth-shape{opacity:1}.scout-state-talk .scout-tagline{opacity:0}.scout-state-greet .scout-body{animation:scoutFloat 3s ease-in-out infinite}.scout-state-greet .scout-mouth-text{opacity:0}.scout-state-greet .scout-mouth-shape{opacity:1}.scout-state-greet .scout-tagline{opacity:0}.scout-state-discover .scout-body{animation:scoutBounce 0.6s ease 1}.scout-state-discover .scout-pulse-ring{transform-origin:0px 50px;animation:scoutPulse 0.6s ease-out 3}.scout-state-discover .scout-center-dot{transform-origin:0px 50px;animation:scoutPulse 0.6s ease-out 3}.scout-state-discover .scout-mouth-text{opacity:1}.scout-state-discover .scout-mouth-shape{opacity:0}.scout-state-discover .scout-tagline{opacity:1}.scout-state-celebrate .scout-body{animation:scoutBounce 0.5s ease-in-out 3}.scout-state-celebrate .scout-mouth-text{opacity:0}.scout-state-celebrate .scout-mouth-shape{opacity:1}.scout-state-celebrate .scout-tagline{opacity:0}.scout-state-celebrate .scout-pulse-ring{transform-origin:0px 50px;animation:scoutPulse 0.8s ease-out infinite}.scout-state-celebrate .scout-confetti-dot{animation:scoutConfetti 1s ease-out infinite}.scout-state-think .scout-body{animation:scoutShake 0.5s ease-in-out 2}.scout-state-think .scout-mouth-text{opacity:1}.scout-state-think .scout-mouth-shape{opacity:0}.scout-state-think .scout-tagline{opacity:1}@keyframes scoutFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}@keyframes scoutWake{0%{transform:scale(0.7) translateY(20px);opacity:0}60%{transform:scale(1.08) translateY(-4px);opacity:1}100%{transform:scale(1) translateY(0);opacity:1}}@keyframes scoutBounce{0%,100%{transform:translateY(0)}20%{transform:translateY(-18px)}40%{transform:translateY(-6px)}60%{transform:translateY(-14px)}80%{transform:translateY(-4px)}}@keyframes scoutShake{0%,100%{transform:rotate(0)}20%{transform:rotate(-8deg)}40%{transform:rotate(8deg)}60%{transform:rotate(-5deg)}80%{transform:rotate(5deg)}}@keyframes scoutPulse{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.4);opacity:0}}@keyframes scoutMouthOpen{0%,100%{d:path("M -34,84 A 38,12 0 0,0 34,84")}40%{d:path("M -34,82 A 38,8 0 0,0 34,82 L 27,92 A 22,6 0 0,1 -27,92 Z")}}@keyframes scoutMouthFill{0%,100%{d:path("M -34,84 A 38,12 0 0,0 34,84 Z")}40%{d:path("M -34,82 A 38,8 0 0,0 34,82 L 27,92 A 22,6 0 0,1 -27,92 Z")}}@keyframes scoutConfetti{0%{opacity:1;transform:translate(0,0)}100%{opacity:0;transform:translate(var(--scout-dx),var(--scout-dy))}}.scout-chat{display:none;flex-direction:column;background:#fff;border:2px solid #B87333;border-radius:12px;font-family:'DM Sans',system-ui,sans-serif;color:#1A2E4A;box-shadow:0 6px 24px rgba(26,46,74,0.18);overflow:hidden;z-index:1000}.scout-host.scout-chat-open .scout-chat{display:flex}.scout-host.scout-chat-open .scout-bubble{display:none !important}.scout-chat-head{display:flex;align-items:center;justify-content:space-between;padding:8px 12px;background:#B87333;color:#fff;flex-shrink:0}.scout-chat-name{font-size:11px;font-weight:600;letter-spacing:0.14em;text-transform:uppercase}.scout-chat-close{background:none;border:none;color:#fff;font-size:22px;line-height:1;cursor:pointer;padding:0 4px;opacity:0.85}.scout-chat-close:hover{opacity:1}.scout-chat-log{flex:1;overflow-y:auto;padding:12px;display:flex;flex-direction:column;gap:8px;background:#F7F3ED;min-height:120px}.scout-chat-msg{padding:8px 12px;border-radius:10px;font-size:13px;line-height:1.5;max-width:85%;word-wrap:break-word;white-space:pre-wrap}.scout-chat-msg-scout{background:#fff;border:1px solid #D4C9BA;color:#1A2E4A;align-self:flex-start;border-top-left-radius:2px}.scout-chat-msg-user{background:#1A2E4A;color:#fff;align-self:flex-end;border-top-right-radius:2px}.scout-chat-thinking{display:none;align-items:center;gap:8px;padding:6px 12px;font-size:12px;color:#6B5E52;background:#F7F3ED;border-top:1px solid #EDE8DF}.scout-chat-thinking.show{display:flex}.scout-chat-pulse{display:inline-flex;gap:3px}.scout-chat-pulse i{width:5px;height:5px;border-radius:50%;background:#B87333;display:block;animation:scoutChatPulse 1.2s ease-in-out infinite}.scout-chat-pulse i:nth-child(2){animation-delay:0.15s}.scout-chat-pulse i:nth-child(3){animation-delay:0.3s}@keyframes scoutChatPulse{0%,80%,100%{opacity:0.25;transform:scale(0.85)}40%{opacity:1;transform:scale(1.1)}}.scout-chat-form{display:flex;gap:6px;padding:8px;border-top:1px solid #EDE8DF;background:#fff;flex-shrink:0}.scout-chat-input{flex:1;padding:8px 10px;font-family:inherit;font-size:13px;border:1px solid #D4C9BA;border-radius:6px;outline:none;color:#1A2E4A;background:#fff;min-width:0}.scout-chat-input:focus{border-color:#B87333}.scout-chat-input:disabled{opacity:0.6}.scout-chat-send{padding:0 12px;background:#B87333;color:#fff;border:none;border-radius:6px;font-family:inherit;font-size:14px;font-weight:600;cursor:pointer;transition:background 0.2s;flex-shrink:0}.scout-chat-send:hover:not(:disabled){background:#8B5520}.scout-chat-send:disabled{opacity:0.5;cursor:not-allowed}`;
 
 const CLIP_ID_PREFIX='scout-clip-';let instanceCount=0;
 
@@ -553,7 +560,121 @@ Scout.prototype.dismiss=function(){
   return this
 };
 
-Scout.prototype.say=function(text,state){return this.show(text,state,false)};
+Scout.prototype.say=function(text,state){
+  if(this._host.classList.contains('scout-chat-open'))return this;
+  return this.show(text,state,false)
+};
+
+Scout.prototype._sessionId=function(){
+  let sid=null;
+  try{sid=sessionStorage.getItem('scout-session-id')}catch(e){}
+  if(!sid){
+    sid=(window.crypto&&crypto.randomUUID)?crypto.randomUUID():(Date.now()+'-'+Math.random().toString(36).slice(2));
+    try{sessionStorage.setItem('scout-session-id',sid)}catch(e){}
+  }
+  return sid
+};
+
+Scout.prototype._loadHistory=function(){
+  try{const raw=sessionStorage.getItem('scout-chat-history');this._chatHistory=raw?JSON.parse(raw):[]}
+  catch(e){this._chatHistory=[]}
+  if(!Array.isArray(this._chatHistory))this._chatHistory=[]
+};
+
+Scout.prototype._saveHistory=function(){
+  try{sessionStorage.setItem('scout-chat-history',JSON.stringify(this._chatHistory.slice(-12)))}catch(e){}
+};
+
+Scout.prototype._renderMessage=function(role,text){
+  const el=document.createElement('div');
+  el.className='scout-chat-msg scout-chat-msg-'+role;
+  el.textContent=text;
+  this._chatLog.appendChild(el);
+  this._chatLog.scrollTop=this._chatLog.scrollHeight
+};
+
+Scout.prototype._renderHistory=function(){
+  this._chatLog.innerHTML='';
+  this._chatHistory.forEach(m=>this._renderMessage(m.role,m.text))
+};
+
+Scout.prototype._appendMessage=function(role,text){
+  this._chatHistory.push({role,text});
+  if(this._chatHistory.length>12)this._chatHistory=this._chatHistory.slice(-12);
+  this._saveHistory();
+  this._renderMessage(role,text)
+};
+
+Scout.prototype._buildChatPanel=function(){
+  const panel=document.createElement('div');
+  panel.className='scout-chat';
+  panel.innerHTML='<div class="scout-chat-head"><span class="scout-chat-name">Scout</span><button type="button" class="scout-chat-close" aria-label="Close chat">×</button></div><div class="scout-chat-log" role="log" aria-live="polite"></div><div class="scout-chat-thinking" aria-hidden="true"><span class="scout-chat-pulse"><i></i><i></i><i></i></span><span>Scout is thinking…</span></div><form class="scout-chat-form" autocomplete="off"><input type="text" class="scout-chat-input" placeholder="Ask about Vistory…" maxlength="500" aria-label="Ask Scout about Vistory"/><button type="submit" class="scout-chat-send" aria-label="Send">Send</button></form>';
+  this._host.appendChild(panel);
+  this._chatPanel=panel;
+  this._chatLog=panel.querySelector('.scout-chat-log');
+  this._chatThinking=panel.querySelector('.scout-chat-thinking');
+  this._chatForm=panel.querySelector('.scout-chat-form');
+  this._chatInput=panel.querySelector('.scout-chat-input');
+  this._chatSend=panel.querySelector('.scout-chat-send');
+  panel.querySelector('.scout-chat-close').addEventListener('click',()=>this.closeChat());
+  this._chatForm.addEventListener('submit',(e)=>{e.preventDefault();this._sendChat()});
+  this._loadHistory();
+  this._renderHistory()
+};
+
+Scout.prototype.openChat=function(){
+  clearTimeout(this._dismissTimer);
+  if(!this._chatPanel)this._buildChatPanel();
+  this.hideBubble();
+  this._host.classList.add('scout-chat-open');
+  if(this._widget)this._widget.classList.add('scout-shown');
+  this.setState('greet');
+  if(this._chatHistory.length===0){
+    this._appendMessage('scout',"Hi — I'm Scout. Ask me anything about Vistory.")
+  }
+  setTimeout(()=>{this._chatInput&&this._chatInput.focus()},120);
+  return this
+};
+
+Scout.prototype.closeChat=function(){
+  this._host.classList.remove('scout-chat-open');
+  if(this._widget)this._widget.classList.remove('scout-shown');
+  this.setState('idle');
+  return this
+};
+
+Scout.prototype._sendChat=async function(){
+  if(this._chatBusy)return;
+  const message=(this._chatInput.value||'').trim();
+  if(!message)return;
+  this._chatBusy=true;
+  this._chatInput.value='';
+  this._chatInput.disabled=true;
+  this._chatSend.disabled=true;
+  this._appendMessage('user',message);
+  this._chatThinking.classList.add('show');
+  this.setState('think');
+  let replyText;
+  try{
+    const r=await fetch('/api/scout',{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({message,sessionId:this._sessionId()})
+    });
+    const data=await r.json().catch(()=>({}));
+    if(!r.ok)replyText=data.error||'Scout hit a snag — try again in a moment.';
+    else replyText=data.reply||'Scout only talks about Vistory — got a question about the app?'
+  }catch(e){
+    replyText='Scout hit a snag — try again in a moment.'
+  }
+  this._chatThinking.classList.remove('show');
+  this._appendMessage('scout',replyText);
+  this.setState('talk');
+  this._chatInput.disabled=false;
+  this._chatSend.disabled=false;
+  this._chatBusy=false;
+  this._chatInput.focus()
+};
 
 Scout.attachScrollTriggers=function(scoutInstance,triggers){
   if(!('IntersectionObserver' in window))return;
@@ -622,23 +743,7 @@ window.addEventListener('DOMContentLoaded',()=>{
 
 function scoutHelpClick(){
   if(!scout)return;
-  const trigger=getCurrentSectionTrigger();
-  const quip=trigger?trigger.quip:"Hi — I'm Scout. Your guide to Vistory. Scroll down to explore.";
-  const state=trigger?(trigger.state||'talk'):'greet';
-  scout.show(quip,state,true);
-}
-
-function getCurrentSectionTrigger(){
-  if(!scout||!scout._sectionTriggers)return null;
-  let best=null,bestVisible=0;
-  scout._sectionTriggers.forEach(t=>{
-    const el=document.querySelector(t.selector);
-    if(!el)return;
-    const rect=el.getBoundingClientRect();
-    const visible=Math.min(rect.bottom,window.innerHeight)-Math.max(rect.top,0);
-    if(visible>bestVisible){bestVisible=visible;best=t}
-  });
-  return bestVisible>50?best:null;
+  scout.openChat();
 }
 </script>
 
