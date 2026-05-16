@@ -237,12 +237,42 @@ footer a:hover{color:var(--lightcopper)}
   50%{transform:scale(1.06)}
 }
 
+/* APP BADGES — NAV */
+.nav-app-badges{display:flex;gap:8px;align-items:center}
+.nav-app-badge{display:flex;align-items:center;gap:6px;background:var(--navy);color:#fff;padding:6px 12px;border-radius:2px;text-decoration:none;font-size:0.75rem;font-weight:500;transition:background 0.2s;white-space:nowrap;line-height:1.2}
+.nav-app-badge:hover{background:var(--deepnavy)}
+.nav-app-badge-icon{font-size:14px}
+.nav-app-badge-text{}
+.nav-app-badge-label{display:block;font-size:0.6rem;opacity:0.65;letter-spacing:0.08em;text-transform:uppercase}
+.nav-app-badge-store{display:block;font-family:'Playfair Display',serif;font-weight:700;font-size:0.8rem;margin-top:1px}
+
+/* INLINE DOWNLOAD STRIP */
+.dl-strip{background:var(--parchment);border:1px solid var(--border);border-radius:2px;padding:2rem 2.5rem;display:flex;align-items:center;justify-content:space-between;gap:2rem;flex-wrap:wrap;margin-top:3rem}
+.dl-strip-text{}
+.dl-strip-eyebrow{font-size:0.7rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--copper);margin-bottom:0.3rem;font-weight:500}
+.dl-strip-headline{font-family:'Playfair Display',serif;font-size:1.1rem;color:var(--navy);font-weight:700}
+.dl-strip-badges{display:flex;gap:10px;flex-wrap:wrap;flex-shrink:0}
+.dl-badge{display:flex;align-items:center;gap:8px;background:#fff;border:1px solid var(--border);padding:10px 16px;text-decoration:none;border-radius:2px;transition:border-color 0.2s,box-shadow 0.2s}
+.dl-badge:hover{border-color:var(--copper);box-shadow:3px 3px 0 rgba(26,46,74,0.08)}
+.dl-badge-icon{font-size:18px}
+.dl-badge-text{}
+.dl-badge-label{display:block;font-size:0.65rem;color:var(--muted);letter-spacing:0.1em;text-transform:uppercase}
+.dl-badge-store{display:block;font-family:'Playfair Display',serif;font-size:0.95rem;font-weight:700;color:var(--navy);margin-top:1px}
+.dl-strip-waitlist{font-size:0.75rem;color:var(--muted);margin-top:0.5rem}
+.dl-strip-waitlist a{color:var(--copper);text-decoration:none;border-bottom:1px solid rgba(184,115,51,0.3)}
+.dl-strip-waitlist a:hover{border-color:var(--copper)}
+
+/* FOOTER APP SECTION */
+.footer-app-row{display:flex;justify-content:center;gap:12px;margin-bottom:1.25rem;flex-wrap:wrap}
+.footer-app-badge{display:flex;align-items:center;gap:8px;background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.15);padding:9px 16px;text-decoration:none;border-radius:2px;transition:border-color 0.2s}
+.footer-app-badge:hover{border-color:rgba(184,115,51,0.5)}
+.footer-app-badge-icon{font-size:18px}
+.footer-app-badge-label{display:block;font-size:0.6rem;color:rgba(255,255,255,0.45);letter-spacing:0.1em;text-transform:uppercase}
+.footer-app-badge-store{display:block;font-family:'Playfair Display',serif;font-size:0.9rem;font-weight:700;color:rgba(255,255,255,0.8);margin-top:1px}
+
 @media(max-width:700px){
-  .tiers,.plans{grid-template-columns:1fr}
-  .nav-links{display:none}
-  .story-block{padding:2.5rem 1.5rem}
-  #scout-widget{bottom:5rem;right:1rem}
-  #scout-help-icon{bottom:1rem;right:1rem}
+  .nav-app-badges{display:none}
+  .dl-strip{flex-direction:column;align-items:flex-start;gap:1.25rem}
 }
 /* Chat panel: pin to viewport corners on narrow desktop too — anchored layout
    only has enough room above ~900px once scrollbars/zoom are factored in. */
@@ -296,6 +326,22 @@ footer a:hover{color:var(--lightcopper)}
     <a href="#features">Features</a>
     <a href="#plans">Plans</a>
     <a href="#faq">FAQ</a>
+    <div class="nav-app-badges">
+      <a href="https://vistoryapp.com" class="nav-app-badge" title="Coming soon to the App Store">
+        <span class="nav-app-badge-icon">🍎</span>
+        <div class="nav-app-badge-text">
+          <span class="nav-app-badge-label">Coming soon</span>
+          <span class="nav-app-badge-store">App Store</span>
+        </div>
+      </a>
+      <a href="https://vistoryapp.com" class="nav-app-badge" title="Coming soon to Google Play">
+        <span class="nav-app-badge-icon">▶</span>
+        <div class="nav-app-badge-text">
+          <span class="nav-app-badge-label">Coming soon</span>
+          <span class="nav-app-badge-store">Google Play</span>
+        </div>
+      </a>
+    </div>
     <a href="https://business.vistoryapp.com" class="nav-cta">For Businesses</a>
   </div>
 </nav>
@@ -435,6 +481,33 @@ footer a:hover{color:var(--lightcopper)}
       <p>Group members see your discovery instantly — even those who couldn't be there. React, celebrate, and plan your next visit together.</p>
     </article>
   </div>
+
+  <!-- Download strip -->
+  <div class="dl-strip">
+    <div class="dl-strip-text">
+      <div class="dl-strip-eyebrow">Download Vistory</div>
+      <div class="dl-strip-headline">History is out there. Go find it.</div>
+      <div class="dl-strip-waitlist">Not live yet — <a href="#email-input" onclick="document.getElementById('email-input').focus()">join the waitlist</a> to be first.</div>
+    </div>
+    <div>
+      <div class="dl-strip-badges">
+        <a href="https://vistoryapp.com" class="dl-badge" title="Coming soon to the App Store">
+          <span class="dl-badge-icon">🍎</span>
+          <div class="dl-badge-text">
+            <span class="dl-badge-label">Coming soon</span>
+            <span class="dl-badge-store">App Store</span>
+          </div>
+        </a>
+        <a href="https://vistoryapp.com" class="dl-badge" title="Coming soon to Google Play">
+          <span class="dl-badge-icon">▶</span>
+          <div class="dl-badge-text">
+            <span class="dl-badge-label">Coming soon</span>
+            <span class="dl-badge-store">Google Play</span>
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
 </section>
 
 <!-- ICON TIERS -->
@@ -535,6 +608,35 @@ footer a:hover{color:var(--lightcopper)}
   </div>
 </section>
 
+<!-- DOWNLOAD CTA STRIP -->
+<div style="max-width:1100px;margin:0 auto;padding:0 2rem">
+  <div class="dl-strip" style="margin-top:0;transform:translateY(-1.5rem)">
+    <div class="dl-strip-text">
+      <div class="dl-strip-eyebrow">Ready to explore?</div>
+      <div class="dl-strip-headline">Download Vistory when it launches.</div>
+      <div class="dl-strip-waitlist">App coming soon — <a href="#email-input" onclick="document.getElementById('email-input').focus();return false;">join the waitlist</a> for launch-day access.</div>
+    </div>
+    <div>
+      <div class="dl-strip-badges">
+        <a href="https://vistoryapp.com" class="dl-badge" title="Coming soon to the App Store">
+          <span class="dl-badge-icon">🍎</span>
+          <div class="dl-badge-text">
+            <span class="dl-badge-label">Coming soon</span>
+            <span class="dl-badge-store">App Store</span>
+          </div>
+        </a>
+        <a href="https://vistoryapp.com" class="dl-badge" title="Coming soon to Google Play">
+          <span class="dl-badge-icon">▶</span>
+          <div class="dl-badge-text">
+            <span class="dl-badge-label">Coming soon</span>
+            <span class="dl-badge-store">Google Play</span>
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
 <!-- FAQ -->
 <section id="faq" aria-labelledby="faq-heading">
   <div class="section-label">Common Questions</div>
@@ -574,6 +676,22 @@ footer a:hover{color:var(--lightcopper)}
 <footer role="contentinfo">
   <div class="footer-brand">Vistory</div>
   <div class="footer-tagline">Visit History</div>
+  <div class="footer-app-row">
+    <a href="https://vistoryapp.com" class="footer-app-badge" title="Coming soon to the App Store">
+      <span class="footer-app-badge-icon">🍎</span>
+      <div>
+        <span class="footer-app-badge-label">Coming soon</span>
+        <span class="footer-app-badge-store">App Store</span>
+      </div>
+    </a>
+    <a href="https://vistoryapp.com" class="footer-app-badge" title="Coming soon to Google Play">
+      <span class="footer-app-badge-icon">▶</span>
+      <div>
+        <span class="footer-app-badge-label">Coming soon</span>
+        <span class="footer-app-badge-store">Google Play</span>
+      </div>
+    </a>
+  </div>
   <p>&copy; 2026 Vistory App LLC. All rights reserved.<br/>
   <a href="mailto:admin@vistoryapp.com">admin@vistoryapp.com</a> &nbsp;|&nbsp;
   <a href="https://business.vistoryapp.com">Business &amp; Partner Portal</a></p>
