@@ -1,0 +1,2 @@
+# Claude Code per-machine settings (settings.json is shared, settings.local.json is not)
+.claude/settings.local.json
