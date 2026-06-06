@@ -3,6 +3,10 @@
     "api/scout.js": {
       "memory": 128,
       "maxDuration": 10
+    },
+    "api/moderate.js": {
+      "memory": 128,
+      "maxDuration": 10
     }
   }
 }
