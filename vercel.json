@@ -7,6 +7,10 @@
     "api/moderate.js": {
       "memory": 128,
       "maxDuration": 10
+    },
+    "api/trivia-generate.js": {
+      "memory": 128,
+      "maxDuration": 15
     }
   }
 }
