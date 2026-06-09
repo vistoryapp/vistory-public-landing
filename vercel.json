@@ -1,4 +1,5 @@
 {
+  "cleanUrls": true,
   "functions": {
     "api/scout.js": {
       "memory": 128,
@@ -11,6 +12,10 @@
     "api/trivia-generate.js": {
       "memory": 128,
       "maxDuration": 15
+    },
+    "api/revenuecat-webhook.js": {
+      "memory": 128,
+      "maxDuration": 10
     }
   }
 }
