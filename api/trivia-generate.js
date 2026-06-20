@@ -128,6 +128,28 @@ module.exports = async (req, res) => {
     return;
   }
 
+  // Dedup: one trivia challenge per (marker, group). Co-located group members
+  // each fire generation for the same marker; reuse the existing challenge
+  // instead of creating duplicates (and skip the wasted LLM call). Solo
+  // collectors (no group) are left independent.
+  if (groupId) {
+    try {
+      const existingRes = await fetch(
+        `${supabaseUrl}/rest/v1/trivia_challenges?marker_id=eq.${markerId}&group_id=eq.${groupId}&select=id&limit=1`,
+        { headers: { apikey: serviceKey, Authorization: `Bearer ${serviceKey}` } },
+      );
+      if (existingRes.ok) {
+        const existing = await existingRes.json();
+        if (Array.isArray(existing) && existing[0]) {
+          res.status(200).json({ id: existing[0].id, deduped: true });
+          return;
+        }
+      }
+    } catch (e) {
+      console.error('Trivia dedup pre-check failed (continuing)', e);
+    }
+  }
+
   // CLOSED CORPUS: the question must be answerable purely from the marker text
   // below. The model must NOT use outside knowledge. (A separate "learn more"
   // hook in the app may reach external sources on request — not here.)
@@ -212,6 +234,23 @@ Respond ONLY with valid JSON, no other text, using lowercase letters for correct
     return;
   }
 
+  // The model has a strong positional bias — it almost always emits the correct
+  // answer as option A. Shuffle the four options server-side and recompute
+  // correct_answer so the right answer lands in a random position.
+  const POS = ['a', 'b', 'c', 'd'];
+  const optionPool = POS.map((l) => ({ text: q[`answer_${l}`], isCorrect: l === correct }));
+  for (let i = optionPool.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [optionPool[i], optionPool[j]] = [optionPool[j], optionPool[i]];
+  }
+  const shuffled = {
+    answer_a: optionPool[0].text,
+    answer_b: optionPool[1].text,
+    answer_c: optionPool[2].text,
+    answer_d: optionPool[3].text,
+    correct_answer: POS[optionPool.findIndex((o) => o.isCorrect)],
+  };
+
   const now = Date.now();
   const firesAt = new Date(now + HOUR_MS).toISOString(); // collection + 1 hour
   const closesAt = new Date(now + 25 * HOUR_MS).toISOString(); // fires_at + 24 hours
@@ -221,11 +260,11 @@ Respond ONLY with valid JSON, no other text, using lowercase letters for correct
     collection_event_id: collectionEventId,
     group_id: groupId,
     question: q.question,
-    answer_a: q.answer_a,
-    answer_b: q.answer_b,
-    answer_c: q.answer_c,
-    answer_d: q.answer_d,
-    correct_answer: correct,
+    answer_a: shuffled.answer_a,
+    answer_b: shuffled.answer_b,
+    answer_c: shuffled.answer_c,
+    answer_d: shuffled.answer_d,
+    correct_answer: shuffled.correct_answer,
     fires_at: firesAt,
     closes_at: closesAt,
   };
@@ -242,6 +281,16 @@ Respond ONLY with valid JSON, no other text, using lowercase letters for correct
       },
       body: JSON.stringify(row),
     });
+    if (r.status === 409) {
+      // Unique (marker_id, group_id) race — a co-located member's insert landed
+      // first. Return the existing challenge instead of erroring.
+      const ex = await fetch(
+        `${supabaseUrl}/rest/v1/trivia_challenges?marker_id=eq.${markerId}&group_id=eq.${groupId}&select=id&limit=1`,
+        { headers: { apikey: serviceKey, Authorization: `Bearer ${serviceKey}` } },
+      ).then((rr) => (rr.ok ? rr.json() : [])).catch(() => []);
+      res.status(200).json({ id: Array.isArray(ex) && ex[0] ? ex[0].id : null, deduped: true });
+      return;
+    }
     if (!r.ok) {
       const text = await r.text().catch(() => '');
       console.error('Supabase insert error', r.status, text);
