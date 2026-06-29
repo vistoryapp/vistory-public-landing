@@ -42,7 +42,7 @@
   "mainEntity": [
     {"@type":"Question","name":"What is Vistory?","acceptedAnswer":{"@type":"Answer","text":"Vistory is a GPS-based historical tourism app for iPhone and Android. When you physically visit a historical marker, GPS proximity unlocks a collectible historical icon with a verified narrative about that location."}},
     {"@type":"Question","name":"How does Vistory work?","acceptedAnswer":{"@type":"Answer","text":"Download Vistory and create a free account. The map shows nearby historical markers. Walk to within range of a marker and your GPS proximity automatically unlocks a collectible icon."}},
-    {"@type":"Question","name":"What is a Silver Shared Discovery?","acceptedAnswer":{"@type":"Answer","text":"When your group visits a historical marker and a member cannot be there, they automatically receive a Silver Shared Discovery icon. They can react in real time and the Silver icon becomes a personal invitation to visit that marker themselves."}},
+    {"@type":"Question","name":"What is Group Finds?","acceptedAnswer":{"@type":"Answer","text":"When a group member reaches a marker you haven't, Vistory adds that place to your trips under Group Finds so you stay connected and included — and are encouraged to go collect the history in person yourself. You earn the icon when you make the visit."}},
     {"@type":"Question","name":"Is Vistory free?","acceptedAnswer":{"@type":"Answer","text":"Yes. Vistory has a free tier that includes one group, one theme, and discovery of all historical markers. Explorer ($4.99/month) and Historian ($9.99/month) plans unlock unlimited groups, trips, and premium features."}},
     {"@type":"Question","name":"When will Vistory be available?","acceptedAnswer":{"@type":"Answer","text":"Vistory is coming soon to the Apple App Store and Google Play Store. Join the waitlist at vistoryapp.com to be notified the moment it launches."}},
     {"@type":"Question","name":"What historical markers are in Vistory?","acceptedAnswer":{"@type":"Answer","text":"Vistory includes verified historical markers sourced in partnership with museums, historical societies, and state historic preservation offices across the United States."}}
@@ -123,7 +123,7 @@ h2{font-family:'Playfair Display',serif;font-size:clamp(1.8rem,4vw,2.8rem);color
 .tier-badge{width:56px;height:56px;margin:0 auto 1rem;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.5rem}
 .tier-badge.gold{background:linear-gradient(135deg,#D4AF37,#F5D060);box-shadow:0 2px 12px rgba(212,175,55,0.35)}
 .tier-badge.std{background:linear-gradient(135deg,#B87333,#D4A55A);box-shadow:0 2px 12px rgba(184,115,51,0.3)}
-.tier-badge.silver{background:linear-gradient(135deg,#A0A0A0,#D4D4D4);box-shadow:0 2px 12px rgba(160,160,160,0.3)}
+.tier-badge.group{background:linear-gradient(135deg,#243D5C,#3A5A82);box-shadow:0 2px 12px rgba(36,61,92,0.3);color:#D4A55A}
 .tier h3{font-family:'Playfair Display',serif;font-size:1rem;color:var(--navy);margin-bottom:0.4rem}
 .tier p{font-size:0.85rem;color:var(--muted);line-height:1.6}
 
@@ -515,12 +515,12 @@ footer a:hover{color:var(--lightcopper)}
   <div style="max-width:1100px;margin:0 auto">
     <div class="section-label">Icon System</div>
     <h2 id="tiers-heading">Every visit earns<br/>a place in history.</h2>
-    <p class="section-intro">Three tiers of collectible icons recognize how and when you made the discovery.</p>
+    <p class="section-intro">Two tiers of collectible icons recognize how you made the discovery — and Group Finds keeps your whole group connected.</p>
     <div class="tiers">
       <article class="tier featured">
         <div class="tier-badge gold" role="img" aria-label="Gold icon">&#9733;</div>
         <h3>Gold Icon</h3>
-        <p>Awarded to the first member of your group to visit a marker. The pioneer. The trailblazer. Gold is earned, never given.</p>
+        <p>Awarded to the first member of your group to reach a marker. The pioneer. The trailblazer. Gold is earned, never given.</p>
       </article>
       <article class="tier">
         <div class="tier-badge std" role="img" aria-label="Standard icon">&#9679;</div>
@@ -528,15 +528,15 @@ footer a:hover{color:var(--lightcopper)}
         <p>Earned by every group member who visits in person — whether before or after someone else has been there. Your visit. Your icon.</p>
       </article>
       <article class="tier">
-        <div class="tier-badge silver" role="img" aria-label="Silver icon">&#9737;</div>
-        <h3>Silver Shared Discovery</h3>
-        <p>Automatically awarded to group members who couldn't be present. Each Silver icon is a personal invitation — and a reason to visit someday.</p>
+        <div class="tier-badge group" role="img" aria-label="Group Finds">&#9873;</div>
+        <h3>Group Finds</h3>
+        <p>When a teammate reaches a marker before you, it's added to your trips under Group Finds — so you stay connected to the discovery and have every reason to go earn the icon in person yourself.</p>
       </article>
     </div>
     <div class="story-block" role="complementary" aria-label="The human story behind Vistory">
-      <blockquote>"Away at college. Deployed overseas. Recovering from surgery. Couldn't make the trip. Vistory remembers you were there in spirit — and gives you every reason to go yourself."</blockquote>
+      <blockquote>"Away at college. Deployed overseas. Recovering from surgery. Couldn't make the trip. When your group discovers a place without you, Vistory adds it to your trips and keeps you in the moment — with every reason to go see it yourself."</blockquote>
       <cite>The Human Story Behind Vistory</cite>
-      <div class="story-scenarios" aria-label="Scenarios where Silver icons matter">
+      <div class="story-scenarios" aria-label="Scenarios where Group Finds keep you connected">
         <span class="scenario-tag">Away at college</span>
         <span class="scenario-tag">Deployed overseas</span>
         <span class="scenario-tag">Recovering from illness</span>
@@ -552,7 +552,7 @@ footer a:hover{color:var(--lightcopper)}
 <section aria-labelledby="achieve-heading">
   <div class="section-label">Achievements</div>
   <h2 id="achieve-heading">A lifetime of<br/>discovery awaits.</h2>
-  <p class="section-intro">Tiered Bronze, Silver, Gold, and Platinum achievements track your journey across both historical discovery and local exploration.</p>
+  <p class="section-intro">Tiered Bronze, Silver, Gold, and Platinum achievements track your journey from your very first discovery onward.</p>
   <div style="display:flex;flex-wrap:wrap;gap:1rem;margin-top:2.5rem">
     <div style="padding:1rem 1.5rem;background:#fff;border:1px solid var(--border);border-radius:2px;font-size:0.88rem;color:var(--navy);font-family:'Playfair Display',serif">First Discovery</div>
     <div style="padding:1rem 1.5rem;background:#fff;border:1px solid var(--border);border-radius:2px;font-size:0.88rem;color:var(--navy);font-family:'Playfair Display',serif">Century Explorer</div>
@@ -578,7 +578,7 @@ footer a:hover{color:var(--lightcopper)}
           <li>1 group</li>
           <li>1 theme campaign</li>
           <li>All achievements</li>
-          <li>Local Discovery markers</li>
+          <li>Points, streaks &amp; leaderboards</li>
         </ul>
       </article>
       <article class="plan popular" aria-label="Explorer plan — most popular">
@@ -598,13 +598,13 @@ footer a:hover{color:var(--lightcopper)}
         <ul class="plan-features" aria-label="Historian plan features">
           <li>Everything in Explorer</li>
           <li>Unlimited groups</li>
-          <li>Propose Special Memory Spots</li>
-          <li>Memory Spots in itineraries</li>
+          <li>Historian-exclusive themes</li>
+          <li>Never lose your streak</li>
           <li>Priority access to new features</li>
         </ul>
       </article>
     </div>
-    <p style="text-align:center;font-size:0.82rem;color:rgba(255,255,255,0.4);margin-top:1.5rem">Annual billing available — Explorer $49.99/yr, Historian $99.99/yr. 7-day free trial on paid plans.</p>
+    <p style="text-align:center;font-size:0.82rem;color:rgba(255,255,255,0.4);margin-top:1.5rem">Annual billing available — Explorer $49.99/yr, Historian $99.99/yr.</p>
   </div>
 </section>
 
@@ -648,11 +648,11 @@ footer a:hover{color:var(--lightcopper)}
     </details>
     <details role="listitem">
       <summary>How does GPS proximity work?</summary>
-      <p class="faq-answer">Vistory checks your GPS location every 15 seconds with accuracy under 50 meters required. When you're within range of a historical marker, your visit is verified automatically. You have to actually be there — no shortcuts, no spoofing.</p>
+      <p class="faq-answer">Vistory continuously checks your location as you move. When you're within range of a historical marker, your visit is verified automatically — you have to actually be there. No shortcuts, no spoofing.</p>
     </details>
     <details role="listitem">
-      <summary>What is a Silver Shared Discovery?</summary>
-      <p class="faq-answer">When your group visits a historical marker and a member can't be there — deployed overseas, away at college, recovering from illness, or simply couldn't make the trip — they automatically receive a Silver Shared Discovery icon. They can react in real time, and the Silver icon becomes a personal invitation to visit that marker themselves someday.</p>
+      <summary>What is Group Finds?</summary>
+      <p class="faq-answer">When a member of your group reaches a marker you haven't — whether you're deployed overseas, away at college, recovering from illness, or simply couldn't make the trip — Vistory adds that place to your trips under Group Finds. It's how the group keeps you connected and included, and gives you every reason to go collect the history in person yourself. You earn the icon when you make the visit.</p>
     </details>
     <details role="listitem">
       <summary>Who verifies the historical content?</summary>
@@ -660,7 +660,7 @@ footer a:hover{color:var(--lightcopper)}
     </details>
     <details role="listitem">
       <summary>Is Vistory free to use?</summary>
-      <p class="faq-answer">Yes. Vistory's free tier includes discovery of all historical markers, one group, one theme campaign, and all achievements. Explorer ($4.99/month) and Historian ($9.99/month) plans unlock unlimited groups, trips, and premium features. A 7-day free trial is available on paid plans.</p>
+      <p class="faq-answer">Yes. Vistory's free tier includes discovery of all historical markers, one group, one theme campaign, and all achievements. Explorer ($4.99/month) and Historian ($9.99/month) plans unlock more groups, unlimited themes and trips, and premium features.</p>
     </details>
     <details role="listitem">
       <summary>When will Vistory be available?</summary>
@@ -936,8 +936,8 @@ window.addEventListener('DOMContentLoaded',()=>{
 
   const triggers=[
     {selector:'#how-it-works', quip:'GPS verified. No shortcuts. You actually have to show up. I respect that.', state:'talk', delay:500},
-    {selector:'#features',     quip:'Gold means first. Silver means someone who loves you went without you — and left a reason to visit.', state:'talk', delay:500},
-    {selector:'.story-block',  quip:"Away at college. Deployed overseas. Couldn't make the trip. The Silver icon remembers what the calendar forgot.", state:'talk', delay:700},
+    {selector:'#features',     quip:"Gold means first to arrive. Standard means you showed up too. Group Finds? That's your group saving the spot — right in your trips.", state:'talk', delay:500},
+    {selector:'.story-block',  quip:"Away at college. Deployed overseas. Couldn't make the trip. Group Finds drops it in your trips so you stay in it — and go when you can.", state:'talk', delay:700},
     {selector:'#plans',        quip:"Free gets you started. Historian gets you obsessed. I'm not judging — I live inside a map pin.", state:'celebrate', delay:500},
     {selector:'#faq',          quip:"Still here? Good. History won't wait forever — well, actually it will. But you shouldn't.", state:'talk', delay:500},
   ];
