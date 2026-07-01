@@ -61,6 +61,19 @@ module.exports = async (req, res) => {
 
   const userId = event.app_user_id;
   const type = event.type;
+
+  // Non-subscription events must NOT touch users.subscription_tier or the
+  // subscriptions table. NON_RENEWING_PURCHASE = consumables (streak freeze /
+  // repair) — handled entirely client-side in streak.tsx; TEST = RevenueCat's
+  // test ping. Neither carries a subscription entitlement, so processing them
+  // here computes tier='free' and would wrongly DOWNGRADE the buyer's canonical
+  // tier (then 502 on the subscriptions upsert). Acknowledge with 200 and ignore.
+  const IGNORED_EVENT_TYPES = new Set(['NON_RENEWING_PURCHASE', 'TEST']);
+  if (IGNORED_EVENT_TYPES.has(type)) {
+    res.status(200).json({ received: true, ignored: type });
+    return;
+  }
+
   if (!userId) {
     res.status(400).json({ error: 'Missing app_user_id' });
     return;
