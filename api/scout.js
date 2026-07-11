@@ -81,7 +81,7 @@ Key facts about Vistory:
 - Trivia: group trivia challenges tied to markers, with a shared progress tracker.
 - Leaderboard: ranks historical exploration; Memory Spot points don't affect ranking.
 - Achievements for exploration milestones, and a daily collection streak.
-- Tagline: Visit History. Available on iPhone and Android.`;
+- Tagline: Visit History. Available on iPhone, with Android coming soon.`;
 
 const REJECT_MSG = 'Scout only talks about Vistory — keep it on topic!';
 const RATE_LIMIT_MSG = 'Scout needs a breather — try again in a moment.';
