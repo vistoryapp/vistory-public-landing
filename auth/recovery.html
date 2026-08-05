@@ -129,7 +129,7 @@
       var SUPABASE_ANON_KEY = 'sb_publishable_4HBgFmgQ8FQmK9zueIs93Q_m2efvXEr';
       var DEFAULT_REDIRECT = 'vistory:///reset-password';
       var params = new URLSearchParams(window.location.search);
-      var token = params.get('token') || params.get('token_hash');
+      var token = (params.get('token_hash') || params.get('token') || '').trim();
       var type = params.get('type') || 'recovery';
       var redirectTo = params.get('redirect_to') || params.get('next') || DEFAULT_REDIRECT;
       var button = document.getElementById('continue');
