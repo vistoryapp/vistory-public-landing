@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Reset Password | Vistory</title>
+  <style>
+    :root {
+      --navy: #1a2e4a;
+      --deep-navy: #122238;
+      --copper: #b87333;
+      --gold: #d4a55a;
+      --text: #f7f2ea;
+      --muted: #c5d0dd;
+      --danger: #ffb4a8;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 22% 18%, rgba(212, 165, 90, 0.16), transparent 28rem),
+        linear-gradient(145deg, var(--navy), var(--deep-navy));
+      display: grid;
+      place-items: center;
+      padding: 24px;
+    }
+
+    main {
+      width: min(100%, 440px);
+      text-align: center;
+    }
+
+    .brand {
+      margin-bottom: 32px;
+    }
+
+    .brand-name {
+      margin: 0;
+      color: var(--gold);
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 48px;
+      line-height: 1;
+      letter-spacing: 2px;
+    }
+
+    .tagline {
+      margin: 10px 0 0;
+      color: var(--copper);
+      font-size: 12px;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+    }
+
+    .panel {
+      border: 1px solid rgba(212, 165, 90, 0.28);
+      background: rgba(18, 34, 56, 0.86);
+      border-radius: 8px;
+      padding: 28px;
+      box-shadow: 0 24px 70px rgba(0, 0, 0, 0.24);
+    }
+
+    h1 {
+      margin: 0 0 12px;
+      font-size: 24px;
+      line-height: 1.2;
+      font-weight: 700;
+    }
+
+    p {
+      margin: 0 0 22px;
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.55;
+    }
+
+    button {
+      width: 100%;
+      min-height: 52px;
+      border: 0;
+      border-radius: 8px;
+      background: var(--copper);
+      color: white;
+      font-size: 16px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    button:focus-visible {
+      outline: 3px solid rgba(212, 165, 90, 0.7);
+      outline-offset: 3px;
+    }
+
+    button:disabled {
+      cursor: wait;
+      opacity: 0.7;
+    }
+
+    .error {
+      color: var(--danger);
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <div class="brand" aria-label="Vistory">
+      <p class="brand-name">Vistory</p>
+      <p class="tagline">Visit History</p>
+    </div>
+
+    <section class="panel" aria-labelledby="title">
+      <h1 id="title">Reset your password</h1>
+      <p id="message">Continue to Vistory to choose a new password.</p>
+      <button id="continue" type="button">Continue Reset</button>
+    </section>
+  </main>
+
+  <script>
+    (function () {
+      var SUPABASE_URL = 'https://nuizofrduibykujsamhb.supabase.co';
+      var DEFAULT_REDIRECT = 'vistory:///reset-password';
+      var params = new URLSearchParams(window.location.search);
+      var token = params.get('token') || params.get('token_hash');
+      var type = params.get('type') || 'recovery';
+      var redirectTo = params.get('redirect_to') || params.get('next') || DEFAULT_REDIRECT;
+      var button = document.getElementById('continue');
+      var message = document.getElementById('message');
+
+      function fail(text) {
+        button.disabled = true;
+        message.textContent = text;
+        message.className = 'error';
+      }
+
+      if (!token || type !== 'recovery') {
+        fail('This reset link is missing required recovery information. Request a new password reset from the Vistory app.');
+        return;
+      }
+
+      if (!/^vistory:\/\/\/?reset-password$/.test(redirectTo)) {
+        redirectTo = DEFAULT_REDIRECT;
+      }
+
+      button.addEventListener('click', function () {
+        var verifyUrl = new URL('/auth/v1/verify', SUPABASE_URL);
+        button.disabled = true;
+        button.textContent = 'Opening Vistory...';
+        verifyUrl.searchParams.set('token', token);
+        verifyUrl.searchParams.set('type', 'recovery');
+        verifyUrl.searchParams.set('redirect_to', redirectTo);
+        window.location.assign(verifyUrl.toString());
+      });
+    })();
+  </script>
+</body>
+</html>
