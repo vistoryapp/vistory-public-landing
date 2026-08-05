@@ -134,6 +134,37 @@
       var redirectTo = params.get('redirect_to') || params.get('next') || DEFAULT_REDIRECT;
       var button = document.getElementById('continue');
       var message = document.getElementById('message');
+      var verifyOtpCallCount = 0;
+
+      function tokenSummary(value) {
+        return {
+          present: !!value,
+          length: value ? value.length : 0,
+          first8: value ? value.slice(0, 8) : null,
+          last8: value ? value.slice(-8) : null,
+          redacted: value && value.length > 16
+            ? value.slice(0, 8) + '...' + value.slice(-8)
+            : value || null
+        };
+      }
+
+      function errorSummary(error) {
+        if (!error) return null;
+        return {
+          code: error.code || null,
+          message: error.message || null,
+          status: error.status || null,
+          name: error.name || null
+        };
+      }
+
+      console.info('recovery page initialized', {
+        token_hash: tokenSummary(token),
+        type: type,
+        supabaseUrl: SUPABASE_URL,
+        anonKey: SUPABASE_ANON_KEY.slice(0, 16) + '...',
+        redirectTo: redirectTo
+      });
 
       function fail(text) {
         button.disabled = true;
@@ -156,13 +187,31 @@
 
         try {
           var client = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-          var result = await client.auth.verifyOtp({
+          var verifyOtpArgs = {
             token_hash: token,
             type: 'recovery'
+          };
+          verifyOtpCallCount += 1;
+          console.info('recovery verifyOtp request', {
+            callCount: verifyOtpCallCount,
+            calledMoreThanOnce: verifyOtpCallCount > 1,
+            args: {
+              token_hash: tokenSummary(verifyOtpArgs.token_hash),
+              type: verifyOtpArgs.type
+            }
+          });
+          var result = await client.auth.verifyOtp(verifyOtpArgs);
+          console.info('recovery verifyOtp response', {
+            callCount: verifyOtpCallCount,
+            data: {
+              sessionPresent: !!(result.data && result.data.session),
+              userPresent: !!(result.data && result.data.user)
+            },
+            error: errorSummary(result.error)
           });
 
           if (result.error || !result.data || !result.data.session) {
-            console.error('recovery verifyOtp failed', result.error);
+            console.error('recovery verifyOtp failed', errorSummary(result.error));
             fail('This reset link is invalid or has expired. Request a new password reset from the Vistory app.');
             return;
           }
@@ -176,7 +225,7 @@
           fragment.set('type', 'recovery');
           window.location.assign(redirectTo + '#' + fragment.toString());
         } catch (error) {
-          console.error('recovery verifyOtp exception', error);
+          console.error('recovery verifyOtp exception', errorSummary(error));
           fail('Could not verify this reset link. Check your connection and request a new password reset if it happens again.');
         }
       });
