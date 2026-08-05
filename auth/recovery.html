@@ -107,6 +107,7 @@
       color: var(--danger);
     }
   </style>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 <body>
   <main>
@@ -125,6 +126,7 @@
   <script>
     (function () {
       var SUPABASE_URL = 'https://nuizofrduibykujsamhb.supabase.co';
+      var SUPABASE_ANON_KEY = 'sb_publishable_4HBgFmgQ8FQmK9zueIs93Q_m2efvXEr';
       var DEFAULT_REDIRECT = 'vistory:///reset-password';
       var params = new URLSearchParams(window.location.search);
       var token = params.get('token') || params.get('token_hash');
@@ -148,14 +150,35 @@
         redirectTo = DEFAULT_REDIRECT;
       }
 
-      button.addEventListener('click', function () {
-        var verifyUrl = new URL('/auth/v1/verify', SUPABASE_URL);
+      button.addEventListener('click', async function () {
         button.disabled = true;
         button.textContent = 'Opening Vistory...';
-        verifyUrl.searchParams.set('token', token);
-        verifyUrl.searchParams.set('type', 'recovery');
-        verifyUrl.searchParams.set('redirect_to', redirectTo);
-        window.location.assign(verifyUrl.toString());
+
+        try {
+          var client = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+          var result = await client.auth.verifyOtp({
+            token_hash: token,
+            type: 'recovery'
+          });
+
+          if (result.error || !result.data || !result.data.session) {
+            console.error('recovery verifyOtp failed', result.error);
+            fail('This reset link is invalid or has expired. Request a new password reset from the Vistory app.');
+            return;
+          }
+
+          var session = result.data.session;
+          var fragment = new URLSearchParams();
+          fragment.set('access_token', session.access_token);
+          fragment.set('refresh_token', session.refresh_token);
+          fragment.set('token_type', session.token_type || 'bearer');
+          fragment.set('expires_in', String(session.expires_in || 3600));
+          fragment.set('type', 'recovery');
+          window.location.assign(redirectTo + '#' + fragment.toString());
+        } catch (error) {
+          console.error('recovery verifyOtp exception', error);
+          fail('Could not verify this reset link. Check your connection and request a new password reset if it happens again.');
+        }
       });
     })();
   </script>
