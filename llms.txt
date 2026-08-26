@@ -4,18 +4,18 @@
 Vistory is a GPS-based historical tourism mobile app for iPhone and Android.
 
 ## What Vistory does
-When a user physically visits a historical marker, GPS proximity unlocks a collectible historical icon with a verified narrative. Users form permanent groups and share discoveries in real time. Group members who cannot be present receive a Silver Shared Discovery icon automatically.
+When a user physically visits a published historical marker, Vistory can unlock a collectible historical icon and its historical story. Collection credit requires using the app within 25 meters of the marker; a QR can identify a marker but does not grant remote credit.
 
 ## Key concepts
-- GPS proximity detection (Haversine formula, 15-second checks, accuracy under 50 meters)
-- Three icon tiers: Gold (first in group), Standard (present), Silver Shared Discovery (absent members)
+- Server-authoritative 25-meter physical-presence collection enforcement
+- Verified Markers (institutionally confirmed) and Preview Markers (published while institutional verification is pending)
 - Special Memory Spots — user-generated private group markers with two-member confirmation
 - Themes — curated marker campaigns by museum, topic, or denomination
 - Achievements — Bronze/Silver/Gold/Platinum across Historical and Local Explorer tracks
 - Local Discovery — GPS-proximity markers for local businesses, clearly distinct from historical markers
 
 ## The human story
-Group members who cannot be present — away at college, deployed overseas, recovering from illness, mobility limitations, or simply couldn't make the trip — receive Silver Shared Discovery icons when the group visits a marker. Each Silver icon is a reason to visit personally someday. This distinguishes Vistory from every competitor.
+Preview Markers are published historical places whose institutional verification is pending; Preview does not mean the place is fake or invalid. Verified Markers have institutional confirmation from an approved Vistory History Partner.
 
 ## Mascot
 Scout is the Vistory mascot — an animated version of the logo mark. The logo is simultaneously a historical marker plaque, a map pin, and a smiling face. Scout is witty, warm, and knowledgeable. Named in tribute to the founder's sons, both Eagle Scouts.

@@ -4,7 +4,7 @@
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>Vistory — Visit History | GPS Historical Marker App</title>
-<meta name="description" content="Vistory turns historical markers into collectible discoveries. Walk to history, unlock verified narratives, and share the journey with family and friends. Available now on iPhone; Android coming soon."/>
+<meta name="description" content="Vistory turns historical markers into collectible discoveries. Walk to history, unlock the story, and share the journey with family and friends. Available now on iPhone and Android."/>
 <meta name="keywords" content="historical marker app, GPS history app, history tourism app, historical travel app, heritage trail app, historical marker collecting"/>
 <meta name="robots" content="index, follow"/>
 <link rel="canonical" href="https://vistoryapp.com/"/>
@@ -23,7 +23,7 @@
   "@type": "MobileApplication",
   "name": "Vistory",
   "alternateName": "Visit History",
-  "description": "GPS-based historical tourism mobile app. Users physically visit historical markers and GPS proximity unlocks collectible historical icons with verified narratives.",
+  "description": "GPS-based historical tourism mobile app. Users physically visit published historical markers to unlock collectible icons and their historical stories.",
   "applicationCategory": "TravelApplication",
   "operatingSystem": "iOS, Android",
   "offers": [
@@ -44,8 +44,8 @@
     {"@type":"Question","name":"How does Vistory work?","acceptedAnswer":{"@type":"Answer","text":"Download Vistory and create a free account. The map shows nearby historical markers. Walk to within range of a marker and your GPS proximity automatically unlocks a collectible icon."}},
     {"@type":"Question","name":"What is Group Finds?","acceptedAnswer":{"@type":"Answer","text":"When a group member reaches a marker you haven't, Vistory adds that place to your trips under Group Finds so you stay connected and included — and are encouraged to go collect the history in person yourself. You earn the icon when you make the visit."}},
     {"@type":"Question","name":"Is Vistory free?","acceptedAnswer":{"@type":"Answer","text":"Yes. Vistory has a free tier that includes one group, one theme, and discovery of all historical markers. Explorer ($4.99/month) and Historian ($9.99/month) plans unlock unlimited groups, trips, and premium features."}},
-    {"@type":"Question","name":"When will Vistory be available?","acceptedAnswer":{"@type":"Answer","text":"Vistory is available now on the Apple App Store, with Android coming soon on Google Play."}},
-    {"@type":"Question","name":"What historical markers are in Vistory?","acceptedAnswer":{"@type":"Answer","text":"Vistory includes verified historical markers sourced in partnership with museums, historical societies, and state historic preservation offices across the United States."}}
+    {"@type":"Question","name":"Where is Vistory available?","acceptedAnswer":{"@type":"Answer","text":"Vistory is available now on the Apple App Store and Google Play."}},
+    {"@type":"Question","name":"What historical markers are in Vistory?","acceptedAnswer":{"@type":"Answer","text":"Vistory includes published historical markers. Verified Markers have institutional confirmation from an approved Vistory History Partner; Preview Markers are real historical places whose institutional verification is still pending."}}
   ]
 }
 </script>
@@ -334,10 +334,10 @@ footer a:hover{color:var(--lightcopper)}
           <span class="nav-app-badge-store">App Store</span>
         </div>
       </a>
-      <a href="https://vistoryapp.com" class="nav-app-badge" title="Coming soon to Google Play">
+      <a href="https://play.google.com/store/apps/details?id=com.vistory.app" class="nav-app-badge" title="Get Vistory on Google Play">
         <span class="nav-app-badge-icon">▶</span>
         <div class="nav-app-badge-text">
-          <span class="nav-app-badge-label">Coming soon</span>
+          <span class="nav-app-badge-label">Get it on</span>
           <span class="nav-app-badge-store">Google Play</span>
         </div>
       </a>
@@ -444,12 +444,7 @@ footer a:hover{color:var(--lightcopper)}
     <div class="hero-eyebrow" role="text">GPS Historical Discovery App</div>
     <h1>History is <em>waiting</em> to be<br/>found.</h1>
     <p class="hero-sub">Vistory turns every historical marker into a collectible discovery. Walk there, unlock the story, share the moment with people you love — even when they can't be with you.</p>
-    <div class="waitlist-form" role="form" aria-label="Join the waitlist">
-      <input type="email" id="email-input" placeholder="Your email address" autocomplete="email" aria-label="Email address"/>
-      <button type="button" onclick="handleWaitlist()">Join the Waitlist</button>
-    </div>
-    <div class="success-msg" id="success-msg" role="alert">You're on the list. We'll notify you when Android launches.</div>
-    <p class="waitlist-note">Available now on iPhone. Android coming soon. No spam, ever.</p>
+    <p class="waitlist-note">Available now on the App Store and Google Play.</p>
   </div>
 </header>
 
@@ -463,12 +458,12 @@ footer a:hover{color:var(--lightcopper)}
     <article class="step" data-num="Step One" role="listitem">
       <svg class="step-icon" viewBox="0 0 44 44" fill="none" aria-hidden="true"><circle cx="22" cy="22" r="20" stroke="#1A2E4A" stroke-width="1.5"/><circle cx="22" cy="22" r="6" fill="#B87333"/><line x1="22" y1="2" x2="22" y2="10" stroke="#1A2E4A" stroke-width="1.5"/><line x1="22" y1="34" x2="22" y2="42" stroke="#1A2E4A" stroke-width="1.5"/><line x1="2" y1="22" x2="10" y2="22" stroke="#1A2E4A" stroke-width="1.5"/><line x1="34" y1="22" x2="42" y2="22" stroke="#1A2E4A" stroke-width="1.5"/></svg>
       <h3>Open the Map</h3>
-      <p>Vistory shows you historical markers nearby. Every pin represents a verified piece of history waiting to be discovered.</p>
+      <p>Vistory shows you published historical markers nearby. Verified Markers have institutional confirmation; Preview Markers are published historical places awaiting that confirmation.</p>
     </article>
     <article class="step" data-num="Step Two" role="listitem">
       <svg class="step-icon" viewBox="0 0 44 44" fill="none" aria-hidden="true"><path d="M22 4C12.06 4 4 12.06 4 22c0 13.25 18 20 18 20s18-6.75 18-20C40 12.06 31.94 4 22 4z" stroke="#1A2E4A" stroke-width="1.5"/><circle cx="22" cy="20" r="5" fill="#B87333"/></svg>
       <h3>Walk There</h3>
-      <p>GPS proximity detection checks your location. When you arrive within range, your presence is verified. You have to actually be there.</p>
+      <p>Collection credit requires using Vistory while you are physically within 25 meters of the marker. A QR can identify a marker, but possession alone does not earn credit.</p>
     </article>
     <article class="step" data-num="Step Three" role="listitem">
       <svg class="step-icon" viewBox="0 0 44 44" fill="none" aria-hidden="true"><rect x="8" y="8" width="28" height="28" rx="3" stroke="#1A2E4A" stroke-width="1.5"/><path d="M16 22l4 4 8-8" stroke="#B87333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
@@ -487,7 +482,7 @@ footer a:hover{color:var(--lightcopper)}
     <div class="dl-strip-text">
       <div class="dl-strip-eyebrow">Download Vistory</div>
       <div class="dl-strip-headline">History is out there. Go find it.</div>
-      <div class="dl-strip-waitlist">Available now on iPhone. Android is still coming soon.</div>
+      <div class="dl-strip-waitlist">Available now on the App Store and Google Play.</div>
     </div>
     <div>
       <div class="dl-strip-badges">
@@ -498,10 +493,10 @@ footer a:hover{color:var(--lightcopper)}
             <span class="dl-badge-store">App Store</span>
           </div>
         </a>
-        <a href="https://vistoryapp.com" class="dl-badge" title="Coming soon to Google Play">
+        <a href="https://play.google.com/store/apps/details?id=com.vistory.app" class="dl-badge" title="Get Vistory on Google Play">
           <span class="dl-badge-icon">▶</span>
           <div class="dl-badge-text">
-            <span class="dl-badge-label">Coming soon</span>
+            <span class="dl-badge-label">Get it on</span>
             <span class="dl-badge-store">Google Play</span>
           </div>
         </a>
@@ -613,8 +608,8 @@ footer a:hover{color:var(--lightcopper)}
   <div class="dl-strip" style="margin-top:0;transform:translateY(-1.5rem)">
     <div class="dl-strip-text">
       <div class="dl-strip-eyebrow">Ready to explore?</div>
-      <div class="dl-strip-headline">Download Vistory on iPhone.</div>
-      <div class="dl-strip-waitlist">Android coming soon — <a href="#email-input" onclick="document.getElementById('email-input').focus();return false;">join the waitlist</a> for Google Play updates.</div>
+      <div class="dl-strip-headline">Download Vistory today.</div>
+      <div class="dl-strip-waitlist">Available now on the App Store and Google Play.</div>
     </div>
     <div>
       <div class="dl-strip-badges">
@@ -625,10 +620,10 @@ footer a:hover{color:var(--lightcopper)}
             <span class="dl-badge-store">App Store</span>
           </div>
         </a>
-        <a href="https://vistoryapp.com" class="dl-badge" title="Coming soon to Google Play">
+        <a href="https://play.google.com/store/apps/details?id=com.vistory.app" class="dl-badge" title="Get Vistory on Google Play">
           <span class="dl-badge-icon">▶</span>
           <div class="dl-badge-text">
-            <span class="dl-badge-label">Coming soon</span>
+            <span class="dl-badge-label">Get it on</span>
             <span class="dl-badge-store">Google Play</span>
           </div>
         </a>
@@ -648,7 +643,7 @@ footer a:hover{color:var(--lightcopper)}
     </details>
     <details role="listitem">
       <summary>How does GPS proximity work?</summary>
-      <p class="faq-answer">Vistory continuously checks your location as you move. When you're within range of a historical marker, your visit is verified automatically — you have to actually be there. No shortcuts, no spoofing.</p>
+      <p class="faq-answer">Vistory awards collection credit only when you use the app while physically within 25 meters of a historical marker. The server checks the visit; scanning or possessing a QR code away from the marker does not earn credit.</p>
     </details>
     <details role="listitem">
       <summary>What is Group Finds?</summary>
@@ -656,15 +651,15 @@ footer a:hover{color:var(--lightcopper)}
     </details>
     <details role="listitem">
       <summary>Who verifies the historical content?</summary>
-      <p class="faq-answer">Vistory partners with museums, historical societies, and state historic preservation offices to source and verify marker narratives. We never publish unverified historical claims.</p>
+      <p class="faq-answer">Authorized Vistory History Partners can verify historical markers. Verified Markers have that institutional confirmation. Preview Markers are published historical places whose institutional verification is still pending; Preview does not mean the place is fake or invalid.</p>
     </details>
     <details role="listitem">
       <summary>Is Vistory free to use?</summary>
       <p class="faq-answer">Yes. Vistory's free tier includes discovery of all historical markers, one group, one theme campaign, and all achievements. Explorer ($4.99/month) and Historian ($9.99/month) plans unlock more groups, unlimited themes and trips, and premium features.</p>
     </details>
     <details role="listitem">
-      <summary>When will Vistory be available?</summary>
-      <p class="faq-answer">Vistory is available now on the Apple App Store. Android is still coming soon on Google Play; join the waitlist at the top of this page for Android launch updates.</p>
+      <summary>Where is Vistory available?</summary>
+      <p class="faq-answer">Vistory is available now on the Apple App Store and Google Play.</p>
     </details>
   </div>
 </section>
@@ -684,10 +679,10 @@ footer a:hover{color:var(--lightcopper)}
         <span class="footer-app-badge-store">App Store</span>
       </div>
     </a>
-    <a href="https://vistoryapp.com" class="footer-app-badge" title="Coming soon to Google Play">
+    <a href="https://play.google.com/store/apps/details?id=com.vistory.app" class="footer-app-badge" title="Get Vistory on Google Play">
       <span class="footer-app-badge-icon">▶</span>
       <div>
-        <span class="footer-app-badge-label">Coming soon</span>
+        <span class="footer-app-badge-label">Get it on</span>
         <span class="footer-app-badge-store">Google Play</span>
       </div>
     </a>
@@ -935,7 +930,7 @@ window.addEventListener('DOMContentLoaded',()=>{
   });
 
   const triggers=[
-    {selector:'#how-it-works', quip:'GPS verified. No shortcuts. You actually have to show up. I respect that.', state:'talk', delay:500},
+    {selector:'#how-it-works', quip:'Collection credit requires being at the marker. History is better in person anyway.', state:'talk', delay:500},
     {selector:'#features',     quip:"Gold means first to arrive. Standard means you showed up too. Group Finds? That's your group saving the spot — right in your trips.", state:'talk', delay:500},
     {selector:'.story-block',  quip:"Away at college. Deployed overseas. Couldn't make the trip. Group Finds drops it in your trips so you stay in it — and go when you can.", state:'talk', delay:700},
     {selector:'#plans',        quip:"Free gets you started. Historian gets you obsessed. I'm not judging — I live inside a map pin.", state:'celebrate', delay:500},
