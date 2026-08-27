@@ -5,29 +5,30 @@ const test = require('node:test');
 const { resolvePublicMarker } = require('../api/public-marker');
 
 const QR_ID = '11111111-1111-4111-8111-111111111111';
-const MARKER = { id: '22222222-2222-4222-8222-222222222222', title: 'Example Marker', description: 'Public history.', content_version: 3, source: 'not-used_demo_' };
+const MARKER = { title: 'Example Marker', description: 'Public history.', verification_status: 'verified' };
 
 function response(payload, ok = true) { return { ok, json: async () => payload }; }
-function resolver(eventPayload, markerPayload = [MARKER]) {
+function resolver(markerPayload = [MARKER]) {
   const calls = [];
   const fetchImpl = async (url, options) => {
     calls.push({ url: String(url), options });
-    return response(calls.length === 1 ? markerPayload : eventPayload);
+    return response(markerPayload);
   };
   return { calls, value: resolvePublicMarker({ qrId: QR_ID, fetchImpl, supabaseUrl: 'https://example.supabase.co', serviceKey: 'test' }) };
 }
 
 test('published Verified QR exposes only public marker fields', async () => {
-  const r = resolver([{ action: 'verified' }]);
+  const r = resolver();
   assert.deepEqual(await r.value, { title: 'Example Marker', description: 'Public history.', classification: 'verified' });
-  assert.equal(r.calls.length, 2);
-  assert.match(r.calls[0].url, /qr_marker_id=eq\.11111111/);
+  assert.equal(r.calls.length, 1);
+  assert.match(r.calls[0].url, /rpc\/get_public_published_marker_by_qr/);
   assert.doesNotMatch(r.calls[0].url, /collections|users|partner|evidence/);
-  assert.ok(r.calls.every((call) => !call.options.method || call.options.method === 'GET'));
+  assert.equal(r.calls[0].options.method, 'POST');
+  assert.equal(r.calls[0].options.body, JSON.stringify({ p_qr_marker_id: QR_ID }));
 });
 
-test('published Preview QR is authoritative when its current version has no verified event', async () => {
-  const r = resolver([]);
+test('published Preview QR consumes the authoritative server classification', async () => {
+  const r = resolver([{ ...MARKER, verification_status: 'preview' }]);
   assert.equal((await r.value).classification, 'preview');
 });
 
@@ -39,7 +40,7 @@ test('malformed QR never queries Supabase', async () => {
 });
 
 test('unpublished, archived, and invalid QR lookups expose no marker content', async () => {
-  const r = resolver([], []);
+  const r = resolver([]);
   assert.equal(await r.value, null);
   assert.equal(r.calls.length, 1);
 });
@@ -60,5 +61,12 @@ test('public store copy uses both live destinations and contains no Android laun
 
 test('public QR route is rewritten to the informational landing page', () => {
   const config = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'vercel.json'), 'utf8'));
-  assert.deepEqual(config.rewrites, [{ source: '/collect/:qr_id', destination: '/collect.html' }]);
+  assert.deepEqual(config.rewrites, [{ source: '/collect/:qr_id', destination: '/collect' }]);
+});
+
+test('public QR resolver uses only the narrow authoritative RPC', () => {
+  const api = fs.readFileSync(path.join(__dirname, '..', 'api', 'public-marker.js'), 'utf8');
+  assert.match(api, /rpc\/get_public_published_marker_by_qr/);
+  assert.doesNotMatch(api, /marker_verification_events/);
+  assert.doesNotMatch(api, /rest\/v1\/markers/);
 });

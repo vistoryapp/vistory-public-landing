@@ -1,6 +1,6 @@
 {
   "cleanUrls": true,
   "rewrites": [
-    { "source": "/collect/:qr_id", "destination": "/collect.html" }
+    { "source": "/collect/:qr_id", "destination": "/collect" }
   ]
 }

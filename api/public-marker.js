@@ -1,39 +1,25 @@
 const UUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
 
-function asPublicMarker(marker, event) {
+function asPublicMarker(marker) {
   return {
     title: marker.title,
     description: marker.description || '',
-    classification: event && event.action === 'verified' ? 'verified' : 'preview',
+    classification: marker.verification_status,
   };
 }
 
 async function resolvePublicMarker({ qrId, fetchImpl, supabaseUrl, serviceKey }) {
   if (!UUID_RE.test(qrId)) return null;
 
-  const markerUrl = new URL('/rest/v1/markers', supabaseUrl);
-  markerUrl.searchParams.set('select', 'id,title,description,content_version');
-  markerUrl.searchParams.set('qr_marker_id', `eq.${qrId}`);
-  markerUrl.searchParams.set('marker_type', 'eq.historical');
-  markerUrl.searchParams.set('content_status', 'eq.published');
-  markerUrl.searchParams.set('limit', '1');
+  const markerUrl = new URL('/rest/v1/rpc/get_public_published_marker_by_qr', supabaseUrl);
   const headers = { apikey: serviceKey, Authorization: `Bearer ${serviceKey}` };
-  const markerResponse = await fetchImpl(markerUrl, { headers });
+  const markerResponse = await fetchImpl(markerUrl, {
+    method: 'POST', headers: { ...headers, 'Content-Type': 'application/json' },
+    body: JSON.stringify({ p_qr_marker_id: qrId }),
+  });
   if (!markerResponse.ok) throw new Error('marker lookup failed');
   const markers = await markerResponse.json();
-  const marker = markers[0];
-  if (!marker) return null;
-
-  const eventUrl = new URL('/rest/v1/marker_verification_events', supabaseUrl);
-  eventUrl.searchParams.set('select', 'action');
-  eventUrl.searchParams.set('marker_id', `eq.${marker.id}`);
-  eventUrl.searchParams.set('content_version', `eq.${marker.content_version}`);
-  eventUrl.searchParams.set('order', 'occurred_at.desc,id.desc');
-  eventUrl.searchParams.set('limit', '1');
-  const eventResponse = await fetchImpl(eventUrl, { headers });
-  if (!eventResponse.ok) throw new Error('verification lookup failed');
-  const events = await eventResponse.json();
-  return asPublicMarker(marker, events[0]);
+  return markers[0] ? asPublicMarker(markers[0]) : null;
 }
 
 module.exports = async (req, res) => {
