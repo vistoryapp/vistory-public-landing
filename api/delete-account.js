@@ -3,10 +3,11 @@
 // Apple App Review Guideline 5.1.1(v): an app that supports account creation
 // must let the user initiate account deletion from within the app. The mobile
 // client sends its Supabase access token; we VERIFY it against Supabase, then
-// use the service role to delete that auth user. Deleting auth.users cascades
-// to public.users and every user-owned row (collections, trips, group_members,
-// user_themes, user_achievements, …) via the existing ON DELETE CASCADE FKs;
-// created_by references (groups, markers) are ON DELETE SET NULL by design.
+// use the service role to delete that auth user. The auth.users → public.users
+// cascade invokes the database's account-deletion orchestration first: all
+// institution memberships are preflighted, last-Owner continuity is enforced,
+// institutional authority is terminated/severed, and provenance is retained.
+// Ordinary user-owned rows continue to follow their existing FK behavior.
 //
 // SECURITY: we NEVER accept a user id from the client — only the id resolved
 // from the verified token. Bearer token required; no anonymous path.
@@ -15,6 +16,9 @@
 
 const GENERIC_ERROR = 'Could not delete your account. Please try again.';
 const AUTH_MSG = 'Please sign in again to delete your account.';
+const OWNER_CONTINUITY_CODE = 'VISTORY_LAST_OWNER_CONTINUITY_REQUIRED';
+const OWNER_CONTINUITY_MSG =
+  'Institutional ownership must be transferred or resolved before deleting this account.';
 
 async function verifyUser(supabaseUrl, serviceKey, token) {
   try {
@@ -57,7 +61,9 @@ module.exports = async (req, res) => {
     return;
   }
 
-  // Permanent (hard) delete of the auth user → cascades to all owned rows.
+  // Permanent hard-delete. Database triggers perform the institution-aware
+  // preflight and provenance-preserving membership severance atomically inside
+  // the Auth deletion transaction before public.users can be removed.
   try {
     const r = await fetch(`${supabaseUrl}/auth/v1/admin/users/${userId}`, {
       method: 'DELETE',
@@ -69,7 +75,12 @@ module.exports = async (req, res) => {
     });
     if (!r.ok) {
       const t = await r.text().catch(() => '');
-      console.error('admin delete user failed', r.status, t);
+      if (t.includes(OWNER_CONTINUITY_CODE)) {
+        console.info('admin delete user denied: institutional Owner continuity required');
+        res.status(409).json({ error: OWNER_CONTINUITY_MSG, code: OWNER_CONTINUITY_CODE });
+        return;
+      }
+      console.error('admin delete user failed', r.status);
       res.status(502).json({ error: GENERIC_ERROR });
       return;
     }
